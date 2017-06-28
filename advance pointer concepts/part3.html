@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://www.thegeekstuff.com/2012/06/c-constant-pointers/ -->
+<html dir="ltr" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="./part3_files/css.css.gzip" media="screen, projection">
+<title>C Constant Pointers and Pointer to Constants Examples</title>
+<meta name="description" content="Pointers in C has always been a complex concept to understand for newbies. In this article, we will explain the difference between constant pointer, pointe">
+<meta name="robots" content="noodp, noydir">
+<link rel="canonical" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff feed" href="http://www.thegeekstuff.com/feed/">
+<link rel="pingback" href="http://www.thegeekstuff.com/xmlrpc.php">
+
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[295,355] -->
+<meta name="description" content="Pointers in C has always been a complex concept to understand for newbies. In this article, we will explain the difference between constant pointer, pointer to">
+
+<link rel="canonical" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » C Constant Pointers and Pointer to Constants Examples Comments Feed" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/feed/">
+		<script src="./part3_files/cb=gapi.loaded_1" async=""></script><script src="./part3_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./part3_files/ga.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/www.thegeekstuff.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.10"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;return g&&g.fillText?(g.textBaseline="top",g.font="600 32px Arial","flag"===a?(g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3):"diversity"===a?(g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e):("simple"===a?g.fillText(h(55357,56835),0,0):g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./part3_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="https://api.w.org/" href="http://www.thegeekstuff.com/wp-json/">
+<link rel="alternate" type="application/json+oembed" href="http://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.thegeekstuff.com%2F2012%2F06%2Fc-constant-pointers%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.thegeekstuff.com%2F2012%2F06%2Fc-constant-pointers%2F&amp;format=xml">
+<link rel="shortcut icon" href="http://static.thegeekstuff.com/wp-content/uploads/2015/05/favicon.ico.gzip">
+<script type="text/javascript" src="./part3_files/saved_resource"></script><script type="text/javascript" charset="utf-8" async="" src="./part3_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script><script type="text/javascript" src="./part3_files/inputtools.js"></script></head>
+<body class="template-single">
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-5302569-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<div class="container">
+	<div id="header" class="header">
+		<p id="logo"><a href="http://www.thegeekstuff.com/"><img src="./part3_files/thegeekstuff.gif" alt="The Geek Stuff"></a>
+</p><div id="header_ad"><div id="header_ad1">
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Logo Header -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="4708993701"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+	</div>
+	<span class="menu_control">≡ Menu</span>
+<ul id="menu-tgs-menu" class="menu"><li id="menu-item-15798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15798"><a href="http://www.thegeekstuff.com/">Home</a></li>
+<li id="menu-item-15797" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15797"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Free eBook</a></li>
+<li id="menu-item-15805" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15805"><a href="http://www.thegeekstuff.com/best-of-the-blog/">Start Here</a></li>
+<li id="menu-item-15800" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15800"><a href="http://www.thegeekstuff.com/contact/">Contact</a></li>
+<li id="menu-item-15802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15802"><a href="http://www.thegeekstuff.com/about/">About</a></li>
+</ul>
+	<div class="columns">
+		<div class="content">
+			<div id="post-10557" class="post_box grt top" itemscope="" itemtype="http://schema.org/Article">
+				<div class="headline_area">
+					<h1 class="headline" itemprop="name">C Constant Pointers and Pointer to Constants Examples</h1>
+					<div class="byline small">
+						<span class="post_author_intro">by</span> <span class="post_author" itemprop="author">Himanshu Arora</span>
+						<meta itemprop="datePublished" content="2012-06-08">
+						<meta itemprop="dateModified" content="2012-06-07">
+						<span class="post_date_intro">on</span> <span class="post_date" title="2012-06-08">June 8, 2012</span>
+					</div>
+				</div>
+				<div class="post_content" itemprop="articleBody">
+<div style="margin:7px 0px 6px 0px; padding:5px;">
+
+<div style="float:left; width=95px">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1498634555672" name="I0_1498634555672" src="./part3_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="./part3_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true"></iframe>
+</div>
+
+<div style="width=95px">
+<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./part3_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: static; visibility: visible; width: 60px; height: 20px;"></iframe><script type="text/javascript" src="./part3_files/widgets.js"></script>
+</div>
+
+</div>
+<p>Pointers in C has always been a complex concept to understand for newbies. In this article, we will explain the difference between constant pointer, pointer to constant and constant pointer to constant.<br>
+<span id="more-10557"></span><br>
+This article is part of the ongoing series on C pointers: <a href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/">part 1</a>, <a href="http://www.thegeekstuff.com/2012/01/advanced-c-pointers/">part 2</a>, part 3 (this article) </p>
+<h3>Constant Pointers</h3>
+<p>Lets first understand what a constant pointer is. A constant pointer is a pointer that cannot change the address its holding. In other words, we can say that once a constant pointer points to a variable then it cannot point to any other variable.</p>
+<p>A constant pointer is declared as follows :</p>
+<pre>&lt;type of pointer&gt; * const &lt;name of pointer&gt;</pre>
+<p>An example declaration would look like :</p>
+<pre>int * const ptr;</pre>
+<p>Lets take a small code to illustrate these type of pointers :</p>
+<pre>#include&lt;stdio.h&gt;
+
+int main(void)
+{
+    int var1 = 0, var2 = 0;
+    int *const ptr = &amp;var1;
+    ptr = &amp;var2;
+    printf("%d\n", *ptr);
+
+    return 0;
+}</pre>
+<p>In the above example :</p>
+<ul>
+<li>We declared two variables var1 and var2</li>
+<li>A constant pointer ‘ptr’ was declared and made to point var1</li>
+<li>Next, ptr is made to point var2.</li>
+<li>Finally, we try to print the value ptr is pointing to.</li>
+</ul>
+<p>So, in a nutshell, we assigned an address to a constant pointer and then tried to change the address by assigning the address of some other variable to the same constant pointer.</p>
+    <center>
+      <div style="margin-left:2px; margin-top:10px; margin-bottom:10px; ">
+
+        <!-- AD BLOCK -->
+		
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Inside Content -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="8643685131"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<p>Lets now compile the program :</p>
+<pre>$ gcc -Wall constptr.c -o constptr
+constptr.c: In function ‘main’:
+constptr.c:7: error: assignment of read-only variable ‘ptr’</pre>
+<p>So we see that while compiling the compiler complains about ‘ptr’ being a read only variable. This means that we cannot change the value ptr holds. Hence we conclude that a constant pointer which points to a variable cannot be made to point to any other variable.</p>
+<h3>Pointer to Constant</h3>
+<p>As evident from the name, a pointer through which one cannot change the value of variable it points is known as a pointer to constant. These type of pointers can change the address they point to but cannot change the value kept at those address.</p>
+<p>A pointer to constant is defined as :</p>
+<pre>const &lt;type of pointer&gt;* &lt;name of pointer&gt;</pre>
+<p>An example of definition could be :</p>
+<pre>const int* ptr;</pre>
+<p>Lets take a small code to illustrate a pointer to a constant :</p>
+<pre>#include&lt;stdio.h&gt;
+
+int main(void)
+{
+    int var1 = 0;
+    const int* ptr = &amp;var1;
+    *ptr = 1;
+    printf("%d\n", *ptr);
+
+   &nbsp;return 0;
+}</pre>
+<p>In the code above :</p>
+<ul>
+<li>We defined a variable var1 with value 0</li>
+<li>we defined a pointer to a constant which points to variable var1</li>
+<li>Now, through this pointer we tried to change the value of var1</li>
+<li>Used printf to print the new value.</li>
+</ul>
+<p>Now, when the above program is compiled :</p>
+<pre>$ gcc -Wall constptr.c -o constptr
+constptr.c: In function ‘main’:
+constptr.c:7: error: assignment of read-only location ‘*ptr’</pre>
+<p>So we see that the compiler complains about ‘*ptr’ being read-only. This means that we cannot change the value using pointer ‘ptr’ since it is defined a pointer to a constant.</p>
+<h3>Constant Pointer to a Constant</h3>
+<p>If you have understood the above two types then this one is very easy to understand as its a mixture of the above two types of pointers. A constant pointer to constant is a pointer that can neither change the address its pointing to and nor it can change the value kept at that address.</p>
+<p>A constant pointer to constant is defined as :</p>
+<pre>const &lt;type of pointer&gt;* const &lt;name of pointer&gt;</pre>
+<p>for example :</p>
+<pre>const int* const ptr;</pre>
+<p>Lets look at a piece of code to understand this :</p>
+<pre>#include&lt;stdio.h&gt;
+
+int main(void)
+{
+    int var1 = 0,var2 = 0;
+    const int* const ptr = &amp;var1;
+    *ptr = 1;
+    ptr = &amp;var2;
+    printf("%d\n", *ptr);
+
+   &nbsp;return 0;
+}</pre>
+<p>In the code above :</p>
+<ul>
+<li>We declared two variables var1 and var2.</li>
+<li>We declared a constant pointer to a constant and made it to point to var1</li>
+<li>Now in the next two lines we tried to change the address and value pointed by the pointer.</li>
+</ul>
+<p>When the code was compiled :</p>
+<pre>$ gcc -Wall constptr.c -o constptr
+constptr.c: In function ‘main’:
+constptr.c:7: error: assignment of read-only location ‘*ptr’
+constptr.c:8: error: assignment of read-only variable ‘ptr’</pre>
+<p>So we see that the compiler complained about both the value and address being changed. Hence we conclude that a constant pointer to a constant cannot change the address and value pointed by it.</p>
+<div style="margin:7px 0px 3px 0px; padding:5px; background:#F2F0E8">
+
+<div style="float:left; width=95px">
+<div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1498634555690" name="I1_1498634555690" src="./part3_files/fastbutton(1).html" data-gapiattached="true" title="+1"></iframe></div>
+</div>
+
+<div style="float:left; width=95px">
+<iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./part3_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: static; visibility: visible; width: 60px; height: 20px;"></iframe><script type="text/javascript" src="./part3_files/widgets.js"></script>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="./part3_files/like(1).html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true"></iframe>
+</div>
+
+<div style="padding:1px">
+&gt;&nbsp;<a href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#commentform" rel="nofollow">Add your comment</a>
+</div>
+
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="./part3_files/free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center>
+<table id="booktable">
+<tbody><tr>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="./part3_files/bash-132.png" alt="Bash 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="./part3_files/sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="./part3_files/nagios-core-132.png" alt="Nagios Core 3 Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="./part3_files/vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a>
+</td>
+</tr>
+</tbody></table>
+</center>
+<br>
+				</div>
+			</div>
+			<div id="comments">
+				<p class="comments_intro"><span class="bracket">{</span> <span class="num_comments">36</span> comments… <a href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#commentform" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				<ul class="comment_list">
+					<li class="comment even thread-even depth-1" id="comment-247865">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Jalal Hajigholamali</span>
+							<span class="comment_date">June 8, 2012, 2:13 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-247865"><p>Hi,</p>
+<p>Thanks, useful article</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-247865" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-247932">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">a magic</span>
+							<span class="comment_date">June 8, 2012, 4:19 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-247932"><p>thanks, good article~~~</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-247932" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-248214">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">bob</span>
+							<span class="comment_date">June 8, 2012, 1:01 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-248214"><p>would be helpful if line numbers were shown on source code so we can match the compile error with the exact line without counting</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-248214" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-328305">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Umesh</span>
+							<span class="comment_date">October 5, 2012, 6:53 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-328305"><p>Thanks . Good article</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-328305" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-345475">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ajeet</span>
+							<span class="comment_date">October 20, 2012, 3:44 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-345475"><p>Your content was very helpful for me, it helped me so i like it</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-345475" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-370520">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">selvi</span>
+							<span class="comment_date">November 7, 2012, 11:46 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-370520"><p>explained very well</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-370520" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-373701">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mohammad</span>
+							<span class="comment_date">November 10, 2012, 6:51 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-373701"><p>very good,<br>
+but my problem is : can we point to a constant in c ?<br>
+something like this:<br>
+const char A[10]=…..;<br>
+char *A_pointer=&amp;A[0];<br>
+for (i=0;i=9;i++)<br>
+        printf(“%u”,*A_pointer[i]);</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-373701" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-432007">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">amol</span>
+							<span class="comment_date">December 13, 2012, 2:09 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-432007"><p>hey dude this is just awsm….got my doubts cleared</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-432007" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-562076">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Nabhirai jain</span>
+							<span class="comment_date">March 5, 2013, 4:13 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-562076"><p>Hi.<br>
+This is very good article on constant pointer. Examples and theory are properly<br>
+covered in brief.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-562076" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-602505">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Csaba</span>
+							<span class="comment_date">March 27, 2013, 1:30 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-602505"><p>Thanks, clean and to the point article.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-602505" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-622882">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ram</span>
+							<span class="comment_date">April 2, 2013, 1:26 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-622882"><p>int main()<br>
+{<br>
+     const char*=””;<br>
+     char str[]=”Hello”;<br>
+    s=str;</p>
+<p>now if i write str=”welcome” the compiler give me an error which is obvious as s is pointing to the same string and it is constant but if write<br>
+str[0]=’z’;<br>
+the compiler do not gives any error and the program runs successfully, why? I am not getting.<br>
+}</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-622882" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-696615">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">arpan</span>
+							<span class="comment_date">April 22, 2013, 6:18 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-696615"><p>thanks,very useful article (y)</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-696615" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-807860">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ybc</span>
+							<span class="comment_date">June 14, 2013, 7:10 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-807860"><p>Very good explanation…perfect demonstration.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-807860" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-912880">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ashish</span>
+							<span class="comment_date">September 2, 2013, 3:40 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-912880"><p>explanation is simply to the point and most understandable than i found it given by others</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-912880" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-929999">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">nagarajan.k.r</span>
+							<span class="comment_date">September 12, 2013, 7:07 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-929999"><p>Very good explanation…perfect demonstration.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-929999" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-939195">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Gerhard</span>
+							<span class="comment_date">September 18, 2013, 9:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-939195"><p>Excellent synopsis.  Thanks for the help.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-939195" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-989247">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Hamilton Little</span>
+							<span class="comment_date">October 19, 2013, 12:39 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-989247"><p>Absolutely fantastic synopsis. Thank you for the clear and precise explanation.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-989247" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1093108">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Javor Kamenov</span>
+							<span class="comment_date">December 7, 2013, 5:47 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1093108"><p>Very usefull !!!!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1093108" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1227486">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Bharathi</span>
+							<span class="comment_date">January 24, 2014, 12:56 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1227486"><p>fabulous explanation with adequate examples</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1227486" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1235516">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">sivaram ch</span>
+							<span class="comment_date">January 27, 2014, 6:48 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1235516"><p>Thanks for explaining this toughest concept in a very easy way…</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1235516" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1372587">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ajay</span>
+							<span class="comment_date">March 21, 2014, 3:47 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1372587"><p>Answer to ram,</p>
+<p>it is because when u are doing str=”welcome” , it means u are trying to change the address of str (nothing but &amp;str[0]) which is assigned by the compiler and it is a constant pointer.</p>
+<p>but when u are  doing str[0]=’Z’ , u are trying to change the value at str[0] which is allowed.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1372587" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1383610">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Prashant</span>
+							<span class="comment_date">March 23, 2014, 10:57 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1383610"><p>Nice explaination!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1383610" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1878270">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kunwar singh</span>
+							<span class="comment_date">June 17, 2014, 10:23 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1878270"><p>very nice explanation</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1878270" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1987459">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Battu</span>
+							<span class="comment_date">July 25, 2014, 2:19 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1987459"><p>Constant pointer : int *const p<br>
+Pointer to a constant: int const *p or const int *p<br>
+Constant pointer to a constant: const int *const p</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-1987459" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-2006122">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Manju</span>
+							<span class="comment_date">July 29, 2014, 11:33 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-2006122"><p>Good explanation</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-2006122" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2750664">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">murali</span>
+							<span class="comment_date">November 5, 2014, 5:10 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-2750664"><p>after so long time i could understand clearly</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-2750664" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4014856">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ram</span>
+							<span class="comment_date">April 11, 2015, 7:28 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4014856"><p>Great explanation given by author. Greatly appreciate that. Extremely helpful article</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4014856" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4359798">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Naeem</span>
+							<span class="comment_date">July 27, 2015, 12:10 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4359798"><p>cleared pointers very well</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4359798" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4529075">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Siddanagouda m</span>
+							<span class="comment_date">October 8, 2015, 1:33 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4529075"><p>Pointer concept clearly explained here</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4529075" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4591377">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">sowmyashree</span>
+							<span class="comment_date">November 1, 2015, 7:32 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4591377"><p>nice explaination..thanks..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4591377" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4614097">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ajay</span>
+							<span class="comment_date">November 18, 2015, 6:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4614097"><p>Hi,<br>
+Great article…very clear concept on pointer..thanx</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4614097" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4674965">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">rehan shaikh</span>
+							<span class="comment_date">January 17, 2016, 12:40 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4674965"><p>very helpful thanx …</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4674965" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4683497">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Junaid</span>
+							<span class="comment_date">January 27, 2016, 3:55 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4683497"><p>after so long time i could understand clearly.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4683497" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4726679">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">yogi</span>
+							<span class="comment_date">March 8, 2016, 11:38 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4726679"><p>veru nice article</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4726679" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4798563">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://nil/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://nil/" rel="external nofollow" class="url">Ramanan</a></span>
+							<span class="comment_date">May 6, 2016, 1:23 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4798563"><p>This is really nice article,    thank u ,,,,</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4798563" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4830514">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Om</span>
+							<span class="comment_date">June 17, 2016, 8:33 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4830514"><p>Nice..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#comment-4830514" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+				</ul>
+				<form id="commentform" method="post" action="http://www.thegeekstuff.com/wp-comments-post.php">
+					<a rel="nofollow" id="cancel-comment-reply-link" href="http://www.thegeekstuff.com/2012/06/c-constant-pointers/#respond" style="display:none;">Cancel reply</a>
+					<p class="comment_form_title">Leave a Comment</p>
+					<p id="comment_form_name">
+						<label for="author">Name</label>
+						<input type="text" id="author" class="input_text" name="author" value="" tabindex="1">
+					</p>
+					<p id="comment_form_email">
+						<label for="email">Email</label>
+						<input type="text" id="email" class="input_text" name="email" value="" tabindex="2">
+					</p>
+					<p id="comment_form_url">
+						<label for="url">Website</label>
+						<input type="text" id="url" class="input_text" name="url" value="" tabindex="3">
+					</p>
+					<p id="comment_form_comment">
+						<label for="comment">Comment</label>
+						<textarea name="comment" id="comment" class="input_text" tabindex="4" rows="6"></textarea>
+					</p>
+					<p id="comment_form_submit">
+						<input type="submit" id="submit" class="input_submit" name="submit" tabindex="5" value="Submit">
+					</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="ce2e9cda4f"></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"></p><input type="hidden" name="comment_post_ID" value="10557" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+				<input type="hidden" id="ak_js" name="ak_js" value="1498634555515"></form>
+			</div>
+			<div class="prev_next">
+				<p class="next_post">Next post: <a href="http://www.thegeekstuff.com/2012/06/linux-shared-libraries/" rel="next">Intro to Linux Shared Libraries (How to Create Shared Libraries)</a></p>
+				<p class="previous_post">Previous post: <a href="http://www.thegeekstuff.com/2012/06/happy-4th-birthday-to-the-geek-stuff/" rel="prev">Happy 4th Birthday to The Geek Stuff</a></p>
+			</div>
+		</div>
+		<div class="sidebar">
+<div class="widget widget_text" id="text-21">			<div class="textwidget"><a title="Subscribe via RSS" href="http://www.thegeekstuff.com/feed" rel="nofollow">RSS</a>&nbsp; | &nbsp;<a title="Subscribe via Email" href="http://feedburner.google.com/fb/a/mailverify?uri=TheGeekStuff&amp;loc=en_US" rel="nofollow">Email</a>&nbsp; | &nbsp;<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>&nbsp; | &nbsp;<a title="Become a fan" href="http://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a>&nbsp; | &nbsp;<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Google+</a>
+<br><br>
+<form action="http://www.thegeekstuff.com/search" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="005666763606120661560:zkmegbt_djm">
+    <input type="hidden" name="cof" value="FORID:10">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input style="background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px;" type="text" name="q" size="30" placeholder="Custom Search">
+    <input style="border-color:#CCCCCC #999999 #999999 #CCCCCC; border-style:double; border-width:1px; overflow:visible;" type="submit" name="sa" value="Search">
+  </div>
+<input name="siteurl" type="hidden" value="www.thegeekstuff.com/2012/06/c-constant-pointers/"><input name="ref" type="hidden" value="www.google.co.in/"><input name="ss" type="hidden" value=""></form>
+<script type="text/javascript" src="./part3_files/jsapi"></script>
+<script type="text/javascript">google.load("elements", "1", {packages: "transliteration"});</script><script src="./part3_files/saved_resource(1)" type="text/javascript"></script><link href="./part3_files/transliteration.css" type="text/css" rel="stylesheet"><script src="./part3_files/transliteration.I.js" type="text/javascript"></script>
+<script type="text/javascript" src="./part3_files/t13n"></script>
+<script type="text/javascript" src="./part3_files/brand"></script>
+<br></div>
+		</div><div class="widget widget_text" id="text-3">			<div class="textwidget"><script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Side Bar -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="9054077260"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br></div>
+		</div><div class="widget widget_text" id="text-4"><p class="widget_title">EBOOKS</p>			<div class="textwidget"><ul>
+<li><img title="Linux 101 Hacks Book" src="./part3_files/free-small.png" alt="Linux 101 Hacks Book">&nbsp;<a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a> - Practical Examples to Build a Strong Foundation in Linux</li>
+<li><a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a> - Take Control of Your Bash Command Line and Shell Scripting</li>
+<li><a href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a> - Enhance Your UNIX / Linux Life with Sed and Awk</li>
+<li><a href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a> - Practical Examples for Becoming Fast and Productive in Vim Editor</li>
+<li><a href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a> - Monitor Everything, Be Proactive, and Sleep Well</li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-22">			<div class="textwidget"><iframe src="./part3_files/likebox.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:258px;" allowtransparency="true"></iframe></div>
+		</div><div class="widget widget_text" id="text-17"><p class="widget_title">POPULAR POSTS</p>			<div class="textwidget"><ul>
+<li><a href="http://www.thegeekstuff.com/dslr-accessories/">15 Essential Accessories for Your Nikon or Canon DSLR Camera</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/12-amazing-and-essential-linux-books-to-enrich-your-brain-and-library/">12 Amazing and Essential Linux Books To Enrich Your Brain and Library</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 UNIX / Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used UNIX / Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/gtd-getting-things-done/">How To Be Productive and Get Things Done Using GTD</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/30-things-to-do-when-you-are-bored-and-have-a-computer/">30 Things To Do When you are Bored and have a Computer</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/linux-file-system-structure/">Linux Directory Structure (File System Structure) Explained with Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">Linux Crontab: 15 Awesome Cron Job Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/bug-tracking-system/">Top 10 Open Source Bug Tracking System</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/vi-and-vim-macro-tutorial-how-to-record-and-play/">Vi and Vim Macro Tutorial: How To Record and Play</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! -- 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/best-gmail-tips-and-tricks/">15 Awesome Gmail Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/expertise-in-google-search/">15 Awesome Google Search Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/raid-levels-tutorial/">RAID 0, RAID 1, RAID 5, RAID 10 Explained with Diagrams</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/">Can You Top This? 15 Practical Linux Top Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/top-5-best-network-monitoring-tools/">Top 5 Best System Monitoring Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/top-5-best-linux-os-distributions/">Top 5 Best Linux OS Distributions</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/">How To Monitor Remote Linux Host using Nagios 3.0</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction Tutorial – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/">How to Backup Linux? 15 rsync Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/">The Ultimate Wget Download Guide With 15 Awesome Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/top-5-best-linux-text-editors/">Top 5 Best Linux Text Editors</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/tcpdump-command-examples/">Packet Analyzer: 15 TCPDUMP Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/06/bash-array-tutorial/">The Ultimate Bash Array Tutorial with 15 Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">3 Steps to Perform SSH Login Without Password Using ssh-keygen &amp; ssh-copy-id</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Unix Sed Tutorial: Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/netstat-command-examples/">UNIX / Linux: 10 Netstat Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/the-ultimate-guide-for-creating-strong-passwords/">The Ultimate Guide for Creating Strong Passwords</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/6-steps-to-secure-your-home-wireless-network/">6 Steps to Secure Your Home Wireless Network</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-19"><p class="widget_title">CATEGORIES</p>			<div class="textwidget"><ul>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/linux/">Linux Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vim-2/">Vim Editor</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/sed/">Sed Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/awk/">Awk Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/bash-2/">Bash Shell Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/nagios-2/">Nagios Monitoring</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/openssh-2/">OpenSSH</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/iptables/">IPTables Firewall</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/apache/">Apache Web Server</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/mysql/">MySQL Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/perl/">Perl Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/google/">Google Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/ubuntu/">Ubuntu Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/postgresql/">PostgreSQL DB</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/hello-world/">Hello World Examples</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-programming/">C Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-plus-plus/">C++ Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/dell-2/">DELL Server Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/oracle/">Oracle Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vmware/">VMware Tutorials</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-20">			<div class="textwidget"><div id="___person_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 106px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 106px;" tabindex="0" vspace="0" width="100%" id="I2_1498634555703" name="I2_1498634555703" src="./part3_files/person.html" data-gapiattached="true" title="+Badge"></iframe></div></div>
+		</div>		</div>
+	</div>
+	<div class="footer">
+<div id="footer_widgets" class="columns_3">
+	<div class="one-third sidebar first">
+<div class="widget widget_text" id="text-7"><h4 class="widget_title">About The Geek Stuff</h4>			<div class="textwidget"><br>
+<img class="float" title="Ramesh Natarajan" src="./part3_files/ramesh-small.gif" alt="Linux 101 Hacks Book">
+My name is <strong>Ramesh Natarajan</strong>. I will be posting instruction guides, how-to, troubleshooting tips and tricks on Linux, database, hardware, security and web. My focus is to write articles that will either teach you or help you resolve a problem. Read more about <a href="http://www.thegeekstuff.com/about/">Ramesh Natarajan</a> and the blog.</div>
+		</div>	</div>
+	<div class="one-third sidebar">
+<div class="widget widget_text" id="text-9"><h4 class="widget_title">Contact Us</h4>			<div class="textwidget"><br>
+<strong>Email Me :</strong>
+Use this <a href="http://www.thegeekstuff.com/contact" rel="nofollow">Contact Form</a> to get in touch me with your comments, questions or suggestions about this site. You can also simply drop me a line to say hello!.
+<br><br>
+<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Follow us on Google+</a>
+<br><br>
+<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Follow us on Twitter</a>
+<br><br>
+<a href="http://www.facebook.com/thegeekstuff" rel="nofollow">Become a fan on Facebook</a>&nbsp;&nbsp;</div>
+		</div>	</div>
+	<div class="one-third sidebar last">
+<div class="widget widget_text" id="text-8"><h4 class="widget_title">Support Us</h4>			<div class="textwidget"><br>
+Support this blog by purchasing one of my ebooks.
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a></div>
+		</div>	</div>
+	<div style="clear:both;"></div>
+</div>
+		<p class="attribution">Copyright © 2008–2017 Ramesh Natarajan. All rights reserved  | <a href="http://www.thegeekstuff.com/copyright">Terms of Service</a></p>
+	</div>
+</div>
+<script type="text/javascript" src="./part3_files/form.js.gzip"></script>
+<script type="text/javascript" src="./part3_files/comment-reply.min.js.gzip"></script>
+<script type="text/javascript" src="./part3_files/wp-embed.min.js.gzip"></script>
+<script type="text/javascript">
+(function(){
+	var classes = document.getElementsByClassName('menu_control');
+	for (i = 0; i < classes.length; i++) {
+		classes[i].onclick = function() {
+			var menu = this.nextElementSibling;
+			if (/show_menu/.test(menu.className))
+				menu.className = menu.className.replace('show_menu', '').trim();
+			else
+				menu.className += ' show_menu';
+		};
+	}
+})();
+</script>
+<noscript>&lt;style type="text/css" scoped&gt;.menu { display: block; }&lt;/style&gt;</noscript>
+<script type="text/javascript" src="./part3_files/plusone.js" gapi_processed="true"></script>
+
+
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Content Delivery Network via Amazon Web Services: CloudFront: static.thegeekstuff.com
+
+ Served from: www.thegeekstuff.com @ 2017-06-28 00:24:34 by W3 Total Cache --><iframe name="oauth2relay463643914" id="oauth2relay463643914" src="./part3_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./part3_files/saved_resource.html"></iframe></body></html>

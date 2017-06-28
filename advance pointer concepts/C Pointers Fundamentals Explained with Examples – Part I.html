@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/ -->
+<html dir="ltr" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="./C Pointers Fundamentals Explained with Examples – Part I_files/css.css.gzip" media="screen, projection">
+<title>C Pointers Fundamentals Explained with Examples – Part I</title>
+<meta name="description" content="Anybody who is working on Linux environment (not just developers), should understand the fundamentals of C programming language and write some basic C prog">
+<meta name="robots" content="noodp, noydir">
+<link rel="canonical" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff feed" href="http://www.thegeekstuff.com/feed/">
+<link rel="pingback" href="http://www.thegeekstuff.com/xmlrpc.php">
+
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[295,364] -->
+<meta name="description" content="Anybody who is working on Linux environment (not just developers), should understand the fundamentals of C programming language and write some basic C">
+
+<link rel="canonical" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/">
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » C Pointers Fundamentals Explained with Examples – Part I Comments Feed" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/feed/">
+		<script src="./C Pointers Fundamentals Explained with Examples – Part I_files/cb=gapi.loaded_1" async=""></script><script src="./C Pointers Fundamentals Explained with Examples – Part I_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./C Pointers Fundamentals Explained with Examples – Part I_files/ga.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/www.thegeekstuff.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.10"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;return g&&g.fillText?(g.textBaseline="top",g.font="600 32px Arial","flag"===a?(g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3):"diversity"===a?(g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e):("simple"===a?g.fillText(h(55357,56835),0,0):g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./C Pointers Fundamentals Explained with Examples – Part I_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="https://api.w.org/" href="http://www.thegeekstuff.com/wp-json/">
+<link rel="alternate" type="application/json+oembed" href="http://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.thegeekstuff.com%2F2011%2F12%2Fc-pointers-fundamentals%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.thegeekstuff.com%2F2011%2F12%2Fc-pointers-fundamentals%2F&amp;format=xml">
+<link rel="shortcut icon" href="http://static.thegeekstuff.com/wp-content/uploads/2015/05/favicon.ico.gzip">
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/saved_resource"></script><script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/inputtools.js"></script><script type="text/javascript" charset="utf-8" async="" src="./C Pointers Fundamentals Explained with Examples – Part I_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script></head>
+<body class="template-single">
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-5302569-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<div class="container">
+	<div id="header" class="header">
+		<p id="logo"><a href="http://www.thegeekstuff.com/"><img src="./C Pointers Fundamentals Explained with Examples – Part I_files/thegeekstuff.gif" alt="The Geek Stuff"></a>
+</p><div id="header_ad"><div id="header_ad1">
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Logo Header -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="4708993701"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+	</div>
+	<span class="menu_control">≡ Menu</span>
+<ul id="menu-tgs-menu" class="menu"><li id="menu-item-15798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15798"><a href="http://www.thegeekstuff.com/">Home</a></li>
+<li id="menu-item-15797" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15797"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Free eBook</a></li>
+<li id="menu-item-15805" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15805"><a href="http://www.thegeekstuff.com/best-of-the-blog/">Start Here</a></li>
+<li id="menu-item-15800" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15800"><a href="http://www.thegeekstuff.com/contact/">Contact</a></li>
+<li id="menu-item-15802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15802"><a href="http://www.thegeekstuff.com/about/">About</a></li>
+</ul>
+	<div class="columns">
+		<div class="content">
+			<div id="post-9167" class="post_box grt top" itemscope="" itemtype="http://schema.org/Article">
+				<div class="headline_area">
+					<h1 class="headline" itemprop="name">C Pointers Fundamentals Explained with Examples – Part I</h1>
+					<div class="byline small">
+						<span class="post_author_intro">by</span> <span class="post_author" itemprop="author">Himanshu Arora</span>
+						<meta itemprop="datePublished" content="2011-12-05">
+						<meta itemprop="dateModified" content="2012-03-29">
+						<span class="post_date_intro">on</span> <span class="post_date" title="2011-12-05">December 5, 2011</span>
+					</div>
+				</div>
+				<div class="post_content" itemprop="articleBody">
+<div style="margin:7px 0px 6px 0px; padding:5px;">
+
+<div style="float:left; width=95px">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1498635537127" name="I0_1498635537127" src="./C Pointers Fundamentals Explained with Examples – Part I_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="./C Pointers Fundamentals Explained with Examples – Part I_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true"></iframe>
+</div>
+
+<div style="width=95px">
+<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./C Pointers Fundamentals Explained with Examples – Part I_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: absolute; visibility: hidden; width: 0px; height: 0px;"></iframe><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-twitter-extracted-i1498635535242892588="true">Tweet</a><script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/widgets.js"></script>
+</div>
+
+</div>
+<p><img src="./C Pointers Fundamentals Explained with Examples – Part I_files/c-program-pointers.png" alt="" title="C Pointers" width="285" height="139" class="alignright size-full wp-image-9174">Anybody who is working on Linux environment (not just developers), should understand the fundamentals of C programming language and write some basic C program.</p>
+<p>This article is part of our ongoing series on C programming language.</p>
+<p>The concept of pointers is one of the most powerful fundamentals of C/C++ language.<br>
+<span id="more-9167"></span><br>
+Through pointers a developer can directly access memory from his/her code which makes memory related operations very fast. But, as always, with great power comes great responsibility. </p>
+<p>A developer has to very carefully make use of pointers in order to avoid some problems that can be nightmare to debug.</p>
+<p>In this article we will study the very basic concept of pointers with examples in C language.</p>
+<h3>What are Pointers?</h3>
+<p>Different from other normal variables which can store values, pointers are special variables that can hold the address of a variable. Since they store memory address of a variable, the pointers are very commonly said to “point to variables”. Lets try to understand the concept.</p>
+<p><img src="./C Pointers Fundamentals Explained with Examples – Part I_files/c-var-ptr.png" alt="" title="C Variable Pointers" width="311" height="204" class="aligncenter size-full wp-image-9176"><br>
+As shown in the above diagram:</p>
+    <center>
+      <div style="margin-left:2px; margin-top:10px; margin-bottom:10px; ">
+
+        <!-- AD BLOCK -->
+		
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Inside Content -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="8643685131"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<ul>
+<li>A normal variable ‘var’ has a memory address of 1001 and holds a value 50.</li>
+<li>A <strong>pointer variable</strong> has its own address 2047 but stores 1001, which is the address of the variable ‘var’</li>
+</ul>
+<h3>How to Declare a Pointer?</h3>
+<p>A pointer is declared as :</p>
+<pre>&lt;pointer type&gt; *&lt;pointer-name&gt;</pre>
+<p>In the above declaration :</p>
+<ol>
+<li>pointer-type : It specifies the type of pointer. It can be int,char, float etc. This type specifies the type of variable whose address this pointer can store.</li>
+<li>pointer-name : It can be any name specified by the user. Professionally, there are some coding styles which every code follows. The pointer names commonly start with ‘p’ or end with ‘ptr’</li>
+</ol>
+<p>An example of a pointer declaration can be :</p>
+<pre>char *chptr;</pre>
+<p>In the above declaration, ‘char’ signifies the pointer type, chptr is the name of the pointer while the asterisk ‘*’ signifies that ‘chptr’ is a pointer variable.</p>
+<h3>How to initialize a Pointer?</h3>
+<p>A pointer is initialized in the following way :</p>
+<pre>&lt;pointer declaration(except semicolon)&gt; = &lt;address of a variable&gt;
+
+OR 
+
+&lt;pointer declaration&gt; 
+&lt;name-of-pointer&gt; = &lt;address of a variable&gt;</pre>
+<p>Note that the type of variable above should be same as the pointer type.(Though this is not a strict rule but for beginners this should be kept in mind).</p>
+<p>For example :</p>
+<pre>char ch = 'c'; 
+char *chptr = &amp;ch; //initialize 
+
+OR 
+
+char ch = 'c'; 
+char *chptr; 
+chptr = &amp;ch //initialize</pre>
+<p>In the code above, we declared a character variable ch which stores the value ‘c’. Now, we declared a character pointer ‘chptr’ and initialized it with the address of variable ‘ch’.</p>
+<p>Note that the ‘&amp;’ operator is used to access the address of any type of variable.</p>
+<h3>How to Use a Pointer?</h3>
+<p>A pointer can be used in two contexts.</p>
+<p>Context 1: For accessing the address of the variable whose memory address the pointer stores.</p>
+<p>Again consider the following code :</p>
+<pre>   char ch = 'c'; 
+   char *chptr = &amp;ch;</pre>
+<p>Now, whenever we refer the name ‘chptr’ in the code after the above two lines, then compiler would try to fetch the value contained by this pointer variable, which is the address of the variable (ch) to which the pointer points. i.e. the value given by ‘chptr’ would be equal to ‘&amp;ch’.</p>
+<p>For example :</p>
+<pre>char *ptr = chptr;</pre>
+<p>The value held by ‘chptr’ (which in this case is the address of the variable ‘ch’) is assigned to the new pointer ‘ptr’.</p>
+<p>Context 2: For accessing the value of the variable whose memory address the pointer stores.</p>
+<p>Continuing with the piece of code used above :</p>
+<pre>char ch = 'c';
+char t;
+char *chptr = &amp;ch;
+t = *chptr;</pre>
+<p>We see that in the last line above, we have used ‘*’ before the name of the pointer. What does this asterisk operator do?</p>
+<p>Well, this operator when applied to a pointer variable name(like in the last line above) yields the value of the variable to which this pointer points. Which means, in this case ‘*chptr’ would yield the value kept at address held by chptr. Since ‘chptr’ holds the address of variable ‘ch’ and value of ‘ch’ is ‘c’, so ‘*chptr’ yeilds ‘c’.</p>
+<p>When used with pointers, the asterisk ‘*’ operator is also known as ‘value of’ operator.</p>
+<h3>An Example of C Pointers</h3>
+<p>Consider the following code :</p>
+<p>CODE :</p>
+<pre> 
+#include &lt;stdio.h&gt; 
+
+int main(void) 
+{ 
+    char ch = 'c'; 
+    char *chptr = &amp;ch; 
+
+    int i = 20; 
+    int *intptr = &amp;i; 
+
+    float f = 1.20000; 
+    float *fptr = &amp;f; 
+
+    char *ptr = "I am a string"; 
+
+    printf("\n [%c], [%d], [%f], [%c], [%s]\n", *chptr, *intptr, *fptr, *ptr, ptr);
+
+    return 0; 
+}</pre>
+<p>OUTPUT :</p>
+<pre>$ ./pointers 
+
+ [c], [20], [1.200000], [I], [I am a string]</pre>
+<p>To debug a C program, use <a href="http://www.thegeekstuff.com/2010/03/debug-c-program-using-gdb/">gdb</a>. The above code covers all the common pointers. The first three of them are very trivial now to understand so lets concentrate on the fourth one. In the fourth example, a character pointer points to a string.</p>
+<p>In C, a string is nothing but an array of characters. So we have no staring pointers in C. Its the character pointers that are used in case of strings too.</p>
+<p>Now, coming to the string, when we point a pointer to a string, by default it holds the address of the first character of the string. Lets try to understand it better.</p>
+<p>The string, ‘I am String’ in memory is placed as :</p>
+<pre>1001   1002    1003    1004   1005   1006   1007   1008   1009   1010
+I      a       m       S      t      r      i      n      g      \0
+</pre>
+<p>Since characters occupy one byte each, so they are placed like above in the memory. Note the last character, its a null character which is placed at the end of every string by default in C. This null character signifies the end of the string.</p>
+<p>Now coming back to the point, any character pointer pointing to a string stores the address of the first character of the string. In the code above, ‘ptr’ holds the address of the character ‘I’ ie 1001. Now, when we apply the ‘value of’ operator ‘*’ to ‘ptr’, we intend to fetch the value at address 1001 which is ‘I’ and hence when we print ‘*ptr’, we get ‘I’ as the output.</p>
+<p>Also, If we specify the format specifier as ‘%s’ and use ‘ptr’ (which contains the starting address of the string), then the complete string is printed using printf. The concept is that %s specifier requires the address of the beginning byte of string to display the complete string, which we provided using ‘ptr’ (which we know holds the beginning byte address of the string). This we can see as the last print in the output above.</p>
+<h3>Pointers as Structure Objects</h3>
+<p>Consider the following code :</p>
+<p>CODE:</p>
+<pre>#include&lt;stdio.h&gt; 
+
+struct st{ 
+int a; 
+char ch; 
+}; 
+
+int main(void) 
+{ 
+    struct st obj; 
+    struct st *stobj = &amp;obj; 
+
+    stobj-&gt;a = 5; 
+    stobj-&gt;ch = 'a'; 
+
+    printf("\n [%d] [%c]\n", stobj-&gt;a, stobj-&gt;ch); 
+    return 0; 
+}</pre>
+<p>OUTPUT:</p>
+<pre>$ ./pointers 
+
+ [5] [a]</pre>
+<p>In the above code, we have declared a pointer stobj of type ‘struct st’. Now since the pointer type is a structure, so the address it points to has to be of a ‘struct st’ type variable(which in this case is ‘obj’). Other interesting part is how structure elements are accessed using pointer variable ‘stobj’. Yes, When dealing with pointer objects, its a standard to use arrow operator -&gt; instead of ‘.’ operator(which would have been used, had we used ‘obj’ to access the structure elements).</p>
+<p>To conclude, In this article we studied the concept of pointers in C from scratch and then slowly built upon our understanding to more complex topics like using pointers as structure objects. This was a basic tutorial, we will cover more complex pointer concepts in the part-II of this article. (Part 2: <a href="http://www.thegeekstuff.com/2012/01/advanced-c-pointers/">Advanced C pointers</a>).</p>
+<div style="margin:7px 0px 3px 0px; padding:5px; background:#F2F0E8">
+
+<div style="float:left; width=95px">
+<div id="___plusone_1" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I1_1498635537148" name="I1_1498635537148" src="./C Pointers Fundamentals Explained with Examples – Part I_files/fastbutton(1).html" data-gapiattached="true"></iframe></div><g:plusone size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:plusone>
+</div>
+
+<div style="float:left; width=95px">
+<iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./C Pointers Fundamentals Explained with Examples – Part I_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: absolute; visibility: hidden; width: 0px; height: 0px;"></iframe><a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-twitter-extracted-i1498635535242892588="true">Tweet</a><script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/widgets.js"></script>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="./C Pointers Fundamentals Explained with Examples – Part I_files/like(1).html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true"></iframe>
+</div>
+
+<div style="padding:1px">
+&gt;&nbsp;<a href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#commentform" rel="nofollow">Add your comment</a>
+</div>
+
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center>
+<table id="booktable">
+<tbody><tr>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/bash-132.png" alt="Bash 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/nagios-core-132.png" alt="Nagios Core 3 Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a>
+</td>
+</tr>
+</tbody></table>
+</center>
+<br>
+				</div>
+			</div>
+			<div id="comments">
+				<p class="comments_intro"><span class="bracket">{</span> <span class="num_comments">99</span> comments… <a href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#commentform" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				<ul class="comment_list">
+					<li class="comment even thread-even depth-1" id="comment-150465">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">jalal hajigholamali</span>
+							<span class="comment_date">December 5, 2011, 4:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-150465"><p>Hi,</p>
+<p>Very useful article<br>
+thanks a lot</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-150465" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-150545">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">renjith</span>
+							<span class="comment_date">December 5, 2011, 7:40 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-150545"><p>very nice article<br>
+Go agead and explain us the double and triple pointers<br>
+and 2D and 3D pointers<br>
+Array V/s Pointers<br>
+2D array V/s double pointers<br>
+Can we replace array by pointers?<br>
+main applications of pointers<br>
+Function pointers. etc<br>
+I can also help you guys if you need something..Lets make this more useful to programmers.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-150545" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-150654">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mikeeve</span>
+							<span class="comment_date">December 5, 2011, 12:55 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-150654"><p>Good intro.  If readers are interested, a much more in-depth discussion can be found in “<a href="http://www.amazon.com/gp/product/0131774298/ref=as_li_ss_tl?ie=UTF8&amp;tag=thgest-20&amp;linkCode=as2&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0131774298" rel="nofollow">Expert C Programming: Deep C Secrets</a>” by Peter van der Linden, but, as the name suggests, it is not for beginners.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-150654" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-150883">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Himanshu</span>
+							<span class="comment_date">December 5, 2011, 11:53 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-150883"><p>Thanks a lot for you valuable comments!!<br>
+If people are interested, I can write a PART-II for this article too… <img src="./C Pointers Fundamentals Explained with Examples – Part I_files/simple-smile.png" alt=":-)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-150883" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-150904">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">phpweb</span>
+							<span class="comment_date">December 6, 2011, 1:06 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-150904"><p>Good one. Nice to read and learn</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-150904" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-151704">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">rpark</span>
+							<span class="comment_date">December 7, 2011, 11:12 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-151704"><p>Please DO a part-II.<br>
+Your examples are good, but your explanations of the examples are the good stuff.<br>
+Thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-151704" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-152193">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">noone</span>
+							<span class="comment_date">December 8, 2011, 8:12 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-152193"><p>thanks. especially the describing images are nice to learn</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-152193" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-175513">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">apol</span>
+							<span class="comment_date">January 9, 2012, 4:08 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-175513"><p>I really hope the part II won’t be in 2013 <img draggable="false" class="emoji" alt="😉" src="./C Pointers Fundamentals Explained with Examples – Part I_files/1f609.png"><br>
+BUT, ok, it’s lot of work, so let’s take it easy and wait for a wonderfull part 2 !</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-175513" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-175628">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Himanshu</span>
+							<span class="comment_date">January 9, 2012, 8:36 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-175628"><p>@apol<br>
+Part-II will arrive this month only. <img src="./C Pointers Fundamentals Explained with Examples – Part I_files/simple-smile.png" alt=":-)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-175628" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-175749">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">apol</span>
+							<span class="comment_date">January 10, 2012, 1:59 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-175749"><p>@Himanshu<br>
+Thanks, I look forward to the second and well illustrated part of this article !</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-175749" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-188997">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">February 2, 2012, 2:02 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-188997"><p>very very useful tutorial</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-188997" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-200686">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">DESHRAJ SHARMA</span>
+							<span class="comment_date">February 22, 2012, 8:24 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-200686"><p>in pointer can we assigh any pointer name to adress of array .<br>
+ex: ptr=&amp;a;<br>
+2)<br>
+what is mean by below statement in pointer<br>
+ptr=&amp;a[i]<br>
+—<br>
+plese tell  me that in a pointer what is mean by below statement<br>
+ptr=&amp;p[i];</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-200686" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-213884">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">DarkVenger</span>
+							<span class="comment_date">March 27, 2012, 5:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-213884"><p>@ DESHRAJ SHARMA</p>
+<p>With ptr = &amp;a[i], ptr will have the address of the i element of vector a. In other words, you’re making ptr point to some character of vector a.<br>
+Your code ptr = &amp;a should be ptr = &amp;a[0].<br>
+Assuming a has “I am a string”, from the example above, ptr = &amp;a[7] would print you only the string word.</p>
+<p>If you understand vectors, just think that a[i] is in fact *(a + i), this reads as “the value of the memory address a plus (incremented by) i”.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-213884" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-249789">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ujwal v</span>
+							<span class="comment_date">June 10, 2012, 11:03 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-249789"><p>very quick guide fr pointer,,tnks fr using all data types in very first program itself to explain,that avoids many confusion</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-249789" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-256824">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Mohan</span>
+							<span class="comment_date">June 21, 2012, 10:16 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-256824"><p>nice yar….</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-256824" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-262898">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">saranya</span>
+							<span class="comment_date">July 2, 2012, 5:35 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-262898"><p>please send simple examples for pointer</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-262898" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-264887">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Himanshu</span>
+							<span class="comment_date">July 5, 2012, 10:01 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-264887"><p>@saranya<br>
+What kind of examples you need?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-264887" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-267698">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">July 11, 2012, 3:09 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-267698"><p>**a refers to what?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-267698" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-267846">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Himanshu</span>
+							<span class="comment_date">July 11, 2012, 9:50 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-267846"><p>@Anonymous </p>
+<p>‘a’ refers to an address<br>
+‘*a’ refers to the value kept at above address<br>
+‘**a’ In case the above value is an address then this refers to the value kept at above address</p>
+<p>I hope this helps!!!!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-267846" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-268135">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mehta smit</span>
+							<span class="comment_date">July 11, 2012, 11:32 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-268135"><p>gud onw  <img src="./C Pointers Fundamentals Explained with Examples – Part I_files/simple-smile.png" alt=":)" class="wp-smiley" style="height: 1em; max-height: 1em;"></p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-268135" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-273710">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">neha sharma</span>
+							<span class="comment_date">July 22, 2012, 8:26 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-273710"><p>i think there is a mistake in one example of prog. there is missing * sign in ptr in 2nd example of prog.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-273710" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-283321">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Arun</span>
+							<span class="comment_date">August 10, 2012, 6:42 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-283321"><p>its so useful documrntry..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-283321" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-284369">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Karthick</span>
+							<span class="comment_date">August 12, 2012, 11:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-284369"><p>Helpful.<br>
+Better examples.<br>
+Pointer to pointers may be explained.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-284369" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-291941">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">sreelakshmi prasad</span>
+							<span class="comment_date">August 28, 2012, 3:49 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-291941"><p>good example. the example should be much simple it is complecated to learners</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-291941" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-306118">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">selva madhesh</span>
+							<span class="comment_date">September 15, 2012, 3:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-306118"><p>i want to know how to perform assignment opearations in string and pointer</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-306118" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-312033">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">joshna negi</span>
+							<span class="comment_date">September 20, 2012, 2:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-312033"><p>it really helps me to understand.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-312033" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-322742">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mena</span>
+							<span class="comment_date">September 30, 2012, 3:29 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-322742"><p>nice example</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-322742" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-324520">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">HANNY NARANG</span>
+							<span class="comment_date">October 1, 2012, 9:40 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-324520"><p>pointers is vry imp topic..n key point ……more or less ……i lyk to solv d xampl of pointrs  …builtup an a code also…………………</p>
+<p>thnk u …………………</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-324520" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-333999">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">chap</span>
+							<span class="comment_date">October 10, 2012, 6:08 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-333999"><p>Hello, great article, got a good idea about pointer dec &amp; init. Furthur more can you explain me how to do this.<br>
+I have<br>
+uint8_t *C = malloc((5*sizeof(uint8_t));</p>
+<p>I want to do separately declare and initialize this; like this<br>
+uint8_t *C;<br>
+C=  malloc((5*sizeof(uint8_t));</p>
+<p>can I do so? My requirement is declare *C in struct and after initialize it.</p>
+<p>thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-333999" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-335933">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kavya</span>
+							<span class="comment_date">October 12, 2012, 12:52 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-335933"><p>thank you..!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-335933" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-338086">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Naresh</span>
+							<span class="comment_date">October 14, 2012, 11:51 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-338086"><p>nice one..! short and clear..!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-338086" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-339822">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kala</span>
+							<span class="comment_date">October 15, 2012, 9:32 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-339822"><p>very nice explanation for the beginners.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-339822" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-351843">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">sangeetha</span>
+							<span class="comment_date">October 25, 2012, 9:16 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-351843"><p>This helped me to revise before the day of my exam….. thanks.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-351843" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-357463">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">MD RASHID</span>
+							<span class="comment_date">October 29, 2012, 10:30 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-357463"><p>Very nice for beginners.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-357463" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-401201">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">sarbi</span>
+							<span class="comment_date">November 27, 2012, 6:46 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-401201"><p>very nice….. easily understandable one……</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-401201" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-424754">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Lokesh</span>
+							<span class="comment_date">December 9, 2012, 4:43 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-424754"><p>Good Example………………..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-424754" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-424859">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">December 9, 2012, 6:28 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-424859"><p>its really very easy fr me to understand!!…better than my faculty!!!….:)</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-424859" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-454075">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">M.Silambarasan</span>
+							<span class="comment_date">December 24, 2012, 10:58 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-454075"><p>nice intro</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-454075" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-486755">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">jafar</span>
+							<span class="comment_date">January 10, 2013, 1:08 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-486755"><p>It was excellent!Thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-486755" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-513857">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Mahaveer</span>
+							<span class="comment_date">January 24, 2013, 9:31 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-513857"><p>Good explanation</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-513857" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-519070">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">veni</span>
+							<span class="comment_date">January 28, 2013, 1:02 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-519070"><p>its very useful to us</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-519070" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-521563">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">madhu</span>
+							<span class="comment_date">January 29, 2013, 10:36 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-521563"><p>its good way to learn</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-521563" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-522787">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">indhu</span>
+							<span class="comment_date">January 30, 2013, 12:48 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-522787"><p>such a wonderful explanation…………..,</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-522787" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-533758">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ohed ali</span>
+							<span class="comment_date">February 6, 2013, 10:33 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-533758"><p>hi frnds this is a wonderfull page..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-533758" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-540705">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Azhar</span>
+							<span class="comment_date">February 13, 2013, 1:54 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-540705"><p>realy great!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-540705" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-547646">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">prateek</span>
+							<span class="comment_date">February 21, 2013, 7:09 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-547646"><p>really a nice one…….plzzz also give example of some programs</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-547646" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-568726">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">noor</span>
+							<span class="comment_date">March 9, 2013, 1:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-568726"><p>very useful things it is very easy to understands…….<br>
+thanks a lot frnd……..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-568726" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-596091">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Vishnu</span>
+							<span class="comment_date">March 24, 2013, 7:10 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-596091"><p>Very nice coplecated</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-596091" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-695147">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">pantamsumith</span>
+							<span class="comment_date">April 21, 2013, 11:52 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-695147"><p>good information about pointers…!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-695147" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-740696">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">josephnthyola</span>
+							<span class="comment_date">May 9, 2013, 9:46 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-740696"><p>good information about pointer. is good to know about pointers.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-740696" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-746427">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">yash</span>
+							<span class="comment_date">May 14, 2013, 10:01 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-746427"><p>excellent quick guide to pointers!!!!!!!!<br>
+veryy well explained!!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-746427" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-771565">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Murali Nimmala</span>
+							<span class="comment_date">June 1, 2013, 5:57 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-771565"><p>very very straight forward explanation.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-771565" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-816562">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">mahadevi</span>
+							<span class="comment_date">June 21, 2013, 3:07 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-816562"><p>thanks ; it is very useful</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-816562" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-822124">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Peter</span>
+							<span class="comment_date">June 24, 2013, 10:00 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-822124"><p>How to use pointers in arrays</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-822124" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-839736">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sam</span>
+							<span class="comment_date">July 10, 2013, 8:32 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-839736"><p>Thanks,<br>
+it was very helpful</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-839736" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-843536">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">shital parekh</span>
+							<span class="comment_date">July 14, 2013, 11:16 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-843536"><p>Really a good one</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-843536" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-851634">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">rahul saini</span>
+							<span class="comment_date">July 21, 2013, 10:56 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-851634"><p>it is so eazy</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-851634" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-860972">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Oviya</span>
+							<span class="comment_date">July 29, 2013, 12:36 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-860972"><p>Thanks….! it’s very usefull</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-860972" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-876050">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">yograj</span>
+							<span class="comment_date">August 8, 2013, 11:39 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-876050"><p>its good,,..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-876050" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-897831">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">musni</span>
+							<span class="comment_date">August 22, 2013, 11:30 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-897831"><p>It’s really good to beginners……..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-897831" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-910399">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">vigneswari</span>
+							<span class="comment_date">August 30, 2013, 8:29 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-910399"><p>it is very useful for me</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-910399" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-915809">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">September 4, 2013, 1:00 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-915809"><p>it is very useful for allllll students</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-915809" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-920004">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">raviteja</span>
+							<span class="comment_date">September 6, 2013, 10:34 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-920004"><p>thanks @nice very useful for alllll students</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-920004" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-923048">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Prashanth Rajagopalan</span>
+							<span class="comment_date">September 8, 2013, 3:43 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-923048"><p>Thanks a lot.. It helped me a lot to understand!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-923048" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-943994">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">chaitanya</span>
+							<span class="comment_date">September 22, 2013, 12:56 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-943994"><p>thanku .. ur exams are easy to understand</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-943994" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-953043">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sabyasachi</span>
+							<span class="comment_date">September 27, 2013, 8:40 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-953043"><p>This is very helpful to me, After all I gather some knowledge on Pointers.<br>
+This will helpful for my further campussing too.<br>
+thaks to u</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-953043" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-961273">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Mohan</span>
+							<span class="comment_date">October 3, 2013, 2:16 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-961273"><p>it is easy to learn, thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-961273" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-965842">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kamala</span>
+							<span class="comment_date">October 5, 2013, 8:18 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-965842"><p>thank u very much………………..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-965842" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-968701">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Prakash</span>
+							<span class="comment_date">October 7, 2013, 6:53 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-968701"><p>nice explanation.<br>
+1001   1002    1003    1004   1005   1006   1007   1008   1009   1010<br>
+I      a       m       S      t      r      i      n      g<br>
+the sentence ‘i am string’ has space betn each words.<br>
+what about the space?Space does not take memory address.Plz</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-968701" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1015299">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Asad</span>
+							<span class="comment_date">November 4, 2013, 7:33 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1015299"><p>Thanx man this really helped.. Great stuff…</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1015299" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1045604">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">madhu kotika</span>
+							<span class="comment_date">November 19, 2013, 1:11 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1045604"><p>its very usefull thank u…………….</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1045604" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1076317">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">raghu silati</span>
+							<span class="comment_date">December 1, 2013, 1:04 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1076317"><p>I need full details about constant character pointers and function pointers with examples</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1076317" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1820588">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">richa srivastava</span>
+							<span class="comment_date">June 2, 2014, 11:53 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1820588"><p>Its too good..I like the approach taken to explain…thnks a lot….</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1820588" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1924822">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">vignesh</span>
+							<span class="comment_date">July 3, 2014, 3:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1924822"><p>it is very easy to understand</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1924822" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1998253">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Acou83</span>
+							<span class="comment_date">July 27, 2014, 6:11 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1998253"><p>Very good. Thank you!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-1998253" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2138039">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ashokkumar</span>
+							<span class="comment_date">August 27, 2014, 4:55 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-2138039"><p>It is very helpful.<br>
+Explain full details of pointer in c.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-2138039" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-3341608">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Aravind Reddy Solipuram</span>
+							<span class="comment_date">December 22, 2014, 8:14 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3341608"><p>can you explain how pointers when using arraysi.e., how pointers can point to array type variables</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-3341608" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3839570">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Bipasha Mandal</span>
+							<span class="comment_date">February 27, 2015, 7:29 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3839570"><p>it is too good and it is so easy to understand</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-3839570" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-3882250">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">danish rais</span>
+							<span class="comment_date">March 9, 2015, 3:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3882250"><p>your explanation and examples are so good .</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-3882250" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3966838">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Vinit Kulkarni</span>
+							<span class="comment_date">March 26, 2015, 9:32 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3966838"><p>This is very helpful explanation about pointer<br>
+thank you…..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-3966838" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4275928">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">saniya</span>
+							<span class="comment_date">June 24, 2015, 2:22 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4275928"><p>Thanks for this….it is very useful to us</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4275928" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4421545">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">ajay</span>
+							<span class="comment_date">August 22, 2015, 11:33 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4421545"><p>It’s very nice for a Learner to write a c programme.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4421545" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4501694">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Bhavya</span>
+							<span class="comment_date">September 25, 2015, 1:52 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4501694"><p>Easy to understand</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4501694" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4611970">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">November 16, 2015, 12:17 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4611970"><p>its very useful</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4611970" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4630288">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ankababu GOWDA</span>
+							<span class="comment_date">December 4, 2015, 2:51 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4630288"><p>THANK YOU</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4630288" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4641682">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://gmail/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://gmail/" rel="external nofollow" class="url">Suresh</a></span>
+							<span class="comment_date">December 15, 2015, 8:22 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4641682"><p>After reading this you will be my teacher. Thank you……..</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4641682" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4661779">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">suresh</span>
+							<span class="comment_date">January 4, 2016, 8:02 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4661779"><p>thanks  a lot  for this article every one easily understand  the  pointers  concept…….</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4661779" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4663505">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">January 5, 2016, 10:18 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4663505"><p>#include</p>
+<p>int main()</p>
+<p>{<br>
+&nbsp;<br>
+int i,j;<br>
+&nbsp;&nbsp;&nbsp;<br>
+int *p;</p>
+<p>i = 5;</p>
+<p>p = &amp;i;</p>
+<p>j = *p;&nbsp;<br>
+*p = 7;  </p>
+<p>printf(“ i = %d\n”, i);<br>
+printf(“ j = %d\n”, j);<br>
+printf(“ *p = %d\n”, *p);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>The output will be:<br>
+i=7<br>
+j=5<br>
+*p=7</p>
+<p>#why the value of ‘i’ must be ‘7’ ? i very confused..please help me</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4663505" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4665626">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sandy</span>
+							<span class="comment_date">January 8, 2016, 9:07 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4665626"><p>Nice explaination</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4665626" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4713829">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">shiva</span>
+							<span class="comment_date">March 1, 2016, 8:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4713829"><p>very useful</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4713829" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4797137">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Pete</span>
+							<span class="comment_date">May 3, 2016, 8:56 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4797137"><p>At last! A basic pointers tutorial that explains the mechanics of strings with pointers. So many resources out there discussing the fundamental concepts of pointers but examples only use integers or single chars to illustrate. Those that do feature strings, often complicate the details by scoping in memory allocation and arrays unnecessarily. Thank you!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4797137" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4840402">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kumari</span>
+							<span class="comment_date">July 3, 2016, 6:03 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4840402"><p>simple and good</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4840402" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4900319">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals" rel="external nofollow" class="url">akshay</a></span>
+							<span class="comment_date">December 27, 2016, 1:59 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4900319"><p>Super explanation guys,hats off,keep on doin this good stuff</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4900319" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4903665">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">prashant</span>
+							<span class="comment_date">January 5, 2017, 12:36 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4903665"><p>nice content on this side. it helps me a lot.<br>
+thank you. i am appreciate with your work.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4903665" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4904457">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">David</span>
+							<span class="comment_date">January 7, 2017, 3:02 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4904457"><p>Nice!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4904457" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4905193">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">jayarathinam.p</span>
+							<span class="comment_date">January 10, 2017, 12:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4905193"><p>this article is very useful to me.so,I would like to say thank for that.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4905193" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4907846">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">raghu r g</span>
+							<span class="comment_date">January 17, 2017, 9:52 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4907846"><p>Useful</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4907846" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4913238">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Rather Sartaj</span>
+							<span class="comment_date">February 2, 2017, 5:50 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4913238"><p>what is meant by operation on pointers and it’s fundamentals</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4913238" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4960916">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">rohith</span>
+							<span class="comment_date">May 25, 2017, 11:15 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4960916"><p>its very nice,<br>
+i need full detail about pointers</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#comment-4960916" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+				</ul>
+				<form id="commentform" method="post" action="http://www.thegeekstuff.com/wp-comments-post.php">
+					<a rel="nofollow" id="cancel-comment-reply-link" href="http://www.thegeekstuff.com/2011/12/c-pointers-fundamentals/#respond" style="display:none;">Cancel reply</a>
+					<p class="comment_form_title">Leave a Comment</p>
+					<p id="comment_form_name">
+						<label for="author">Name</label>
+						<input type="text" id="author" class="input_text" name="author" value="" tabindex="1">
+					</p>
+					<p id="comment_form_email">
+						<label for="email">Email</label>
+						<input type="text" id="email" class="input_text" name="email" value="" tabindex="2">
+					</p>
+					<p id="comment_form_url">
+						<label for="url">Website</label>
+						<input type="text" id="url" class="input_text" name="url" value="" tabindex="3">
+					</p>
+					<p id="comment_form_comment">
+						<label for="comment">Comment</label>
+						<textarea name="comment" id="comment" class="input_text" tabindex="4" rows="6"></textarea>
+					</p>
+					<p id="comment_form_submit">
+						<input type="submit" id="submit" class="input_submit" name="submit" tabindex="5" value="Submit">
+					</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="429be19e46"></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"></p><input type="hidden" name="comment_post_ID" value="9167" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+				<input type="hidden" id="ak_js" name="ak_js" value="1498635536857"></form>
+			</div>
+			<div class="prev_next">
+				<p class="next_post">Next post: <a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/" rel="next">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></p>
+				<p class="previous_post">Previous post: <a href="http://www.thegeekstuff.com/2011/11/linux-nis-server-and-client/" rel="prev">How to Setup and Configure YPServ Linux NIS Server and Client</a></p>
+			</div>
+		</div>
+		<div class="sidebar">
+<div class="widget widget_text" id="text-21">			<div class="textwidget"><a title="Subscribe via RSS" href="http://www.thegeekstuff.com/feed" rel="nofollow">RSS</a>&nbsp; | &nbsp;<a title="Subscribe via Email" href="http://feedburner.google.com/fb/a/mailverify?uri=TheGeekStuff&amp;loc=en_US" rel="nofollow">Email</a>&nbsp; | &nbsp;<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>&nbsp; | &nbsp;<a title="Become a fan" href="http://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a>&nbsp; | &nbsp;<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Google+</a>
+<br><br>
+<form action="http://www.thegeekstuff.com/search" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="005666763606120661560:zkmegbt_djm">
+    <input type="hidden" name="cof" value="FORID:10">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input style="background: url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) left center no-repeat rgb(255, 255, 255); text-indent: 48px;" type="text" name="q" size="30" placeholder="Custom Search">
+    <input style="border-color:#CCCCCC #999999 #999999 #CCCCCC; border-style:double; border-width:1px; overflow:visible;" type="submit" name="sa" value="Search">
+  </div>
+<input name="siteurl" type="hidden" value="www.thegeekstuff.com/2011/12/c-pointers-fundamentals/"><input name="ref" type="hidden" value="www.thegeekstuff.com/2012/06/c-constant-pointers/"><input name="ss" type="hidden" value=""></form>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/jsapi"></script>
+<script type="text/javascript">google.load("elements", "1", {packages: "transliteration"});</script><script src="./C Pointers Fundamentals Explained with Examples – Part I_files/saved_resource(1)" type="text/javascript"></script><link href="./C Pointers Fundamentals Explained with Examples – Part I_files/transliteration.css" type="text/css" rel="stylesheet"><script src="./C Pointers Fundamentals Explained with Examples – Part I_files/transliteration.I.js" type="text/javascript"></script>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/t13n"></script>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/brand"></script>
+<br></div>
+		</div><div class="widget widget_text" id="text-3">			<div class="textwidget"><script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TGS Side Bar -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="9054077260"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br></div>
+		</div><div class="widget widget_text" id="text-4"><p class="widget_title">EBOOKS</p>			<div class="textwidget"><ul>
+<li><img title="Linux 101 Hacks Book" src="./C Pointers Fundamentals Explained with Examples – Part I_files/free-small.png" alt="Linux 101 Hacks Book">&nbsp;<a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a> - Practical Examples to Build a Strong Foundation in Linux</li>
+<li><a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a> - Take Control of Your Bash Command Line and Shell Scripting</li>
+<li><a href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a> - Enhance Your UNIX / Linux Life with Sed and Awk</li>
+<li><a href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a> - Practical Examples for Becoming Fast and Productive in Vim Editor</li>
+<li><a href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a> - Monitor Everything, Be Proactive, and Sleep Well</li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-22">			<div class="textwidget"><iframe src="./C Pointers Fundamentals Explained with Examples – Part I_files/likebox.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:258px;" allowtransparency="true"></iframe></div>
+		</div><div class="widget widget_text" id="text-17"><p class="widget_title">POPULAR POSTS</p>			<div class="textwidget"><ul>
+<li><a href="http://www.thegeekstuff.com/dslr-accessories/">15 Essential Accessories for Your Nikon or Canon DSLR Camera</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/12-amazing-and-essential-linux-books-to-enrich-your-brain-and-library/">12 Amazing and Essential Linux Books To Enrich Your Brain and Library</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 UNIX / Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used UNIX / Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/gtd-getting-things-done/">How To Be Productive and Get Things Done Using GTD</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/30-things-to-do-when-you-are-bored-and-have-a-computer/">30 Things To Do When you are Bored and have a Computer</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/linux-file-system-structure/">Linux Directory Structure (File System Structure) Explained with Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">Linux Crontab: 15 Awesome Cron Job Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/bug-tracking-system/">Top 10 Open Source Bug Tracking System</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/vi-and-vim-macro-tutorial-how-to-record-and-play/">Vi and Vim Macro Tutorial: How To Record and Play</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! -- 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/best-gmail-tips-and-tricks/">15 Awesome Gmail Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/expertise-in-google-search/">15 Awesome Google Search Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/raid-levels-tutorial/">RAID 0, RAID 1, RAID 5, RAID 10 Explained with Diagrams</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/">Can You Top This? 15 Practical Linux Top Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/top-5-best-network-monitoring-tools/">Top 5 Best System Monitoring Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/top-5-best-linux-os-distributions/">Top 5 Best Linux OS Distributions</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/">How To Monitor Remote Linux Host using Nagios 3.0</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction Tutorial – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/">How to Backup Linux? 15 rsync Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/">The Ultimate Wget Download Guide With 15 Awesome Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/top-5-best-linux-text-editors/">Top 5 Best Linux Text Editors</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/tcpdump-command-examples/">Packet Analyzer: 15 TCPDUMP Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/06/bash-array-tutorial/">The Ultimate Bash Array Tutorial with 15 Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">3 Steps to Perform SSH Login Without Password Using ssh-keygen &amp; ssh-copy-id</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Unix Sed Tutorial: Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/netstat-command-examples/">UNIX / Linux: 10 Netstat Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/the-ultimate-guide-for-creating-strong-passwords/">The Ultimate Guide for Creating Strong Passwords</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/6-steps-to-secure-your-home-wireless-network/">6 Steps to Secure Your Home Wireless Network</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-19"><p class="widget_title">CATEGORIES</p>			<div class="textwidget"><ul>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/linux/">Linux Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vim-2/">Vim Editor</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/sed/">Sed Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/awk/">Awk Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/bash-2/">Bash Shell Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/nagios-2/">Nagios Monitoring</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/openssh-2/">OpenSSH</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/iptables/">IPTables Firewall</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/apache/">Apache Web Server</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/mysql/">MySQL Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/perl/">Perl Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/google/">Google Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/ubuntu/">Ubuntu Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/postgresql/">PostgreSQL DB</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/hello-world/">Hello World Examples</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-programming/">C Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-plus-plus/">C++ Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/dell-2/">DELL Server Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/oracle/">Oracle Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vmware/">VMware Tutorials</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-20">			<div class="textwidget"><div id="___person_0" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I2_1498635537169" name="I2_1498635537169" src="./C Pointers Fundamentals Explained with Examples – Part I_files/person.html" data-gapiattached="true"></iframe></div><g:person href="https://plus.google.com/112493711428194838421" data-rel="author" layout="landscape" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:person></div>
+		</div>		</div>
+	</div>
+	<div class="footer">
+<div id="footer_widgets" class="columns_3">
+	<div class="one-third sidebar first">
+<div class="widget widget_text" id="text-7"><h4 class="widget_title">About The Geek Stuff</h4>			<div class="textwidget"><br>
+<img class="float" title="Ramesh Natarajan" src="./C Pointers Fundamentals Explained with Examples – Part I_files/ramesh-small.gif" alt="Linux 101 Hacks Book">
+My name is <strong>Ramesh Natarajan</strong>. I will be posting instruction guides, how-to, troubleshooting tips and tricks on Linux, database, hardware, security and web. My focus is to write articles that will either teach you or help you resolve a problem. Read more about <a href="http://www.thegeekstuff.com/about/">Ramesh Natarajan</a> and the blog.</div>
+		</div>	</div>
+	<div class="one-third sidebar">
+<div class="widget widget_text" id="text-9"><h4 class="widget_title">Contact Us</h4>			<div class="textwidget"><br>
+<strong>Email Me :</strong>
+Use this <a href="http://www.thegeekstuff.com/contact" rel="nofollow">Contact Form</a> to get in touch me with your comments, questions or suggestions about this site. You can also simply drop me a line to say hello!.
+<br><br>
+<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Follow us on Google+</a>
+<br><br>
+<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Follow us on Twitter</a>
+<br><br>
+<a href="http://www.facebook.com/thegeekstuff" rel="nofollow">Become a fan on Facebook</a>&nbsp;&nbsp;</div>
+		</div>	</div>
+	<div class="one-third sidebar last">
+<div class="widget widget_text" id="text-8"><h4 class="widget_title">Support Us</h4>			<div class="textwidget"><br>
+Support this blog by purchasing one of my ebooks.
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a></div>
+		</div>	</div>
+	<div style="clear:both;"></div>
+</div>
+		<p class="attribution">Copyright © 2008–2017 Ramesh Natarajan. All rights reserved  | <a href="http://www.thegeekstuff.com/copyright">Terms of Service</a></p>
+	</div>
+</div>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/form.js.gzip"></script>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/comment-reply.min.js.gzip"></script>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/wp-embed.min.js.gzip"></script>
+<script type="text/javascript">
+(function(){
+	var classes = document.getElementsByClassName('menu_control');
+	for (i = 0; i < classes.length; i++) {
+		classes[i].onclick = function() {
+			var menu = this.nextElementSibling;
+			if (/show_menu/.test(menu.className))
+				menu.className = menu.className.replace('show_menu', '').trim();
+			else
+				menu.className += ' show_menu';
+		};
+	}
+})();
+</script>
+<noscript>&lt;style type="text/css" scoped&gt;.menu { display: block; }&lt;/style&gt;</noscript>
+<script type="text/javascript" src="./C Pointers Fundamentals Explained with Examples – Part I_files/plusone.js" gapi_processed="true"></script>
+
+
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Content Delivery Network via Amazon Web Services: CloudFront: static.thegeekstuff.com
+
+ Served from: www.thegeekstuff.com @ 2017-06-28 00:45:59 by W3 Total Cache --><iframe name="oauth2relay561121285" id="oauth2relay561121285" src="./C Pointers Fundamentals Explained with Examples – Part I_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./C Pointers Fundamentals Explained with Examples – Part I_files/saved_resource.html"></iframe></body></html>
