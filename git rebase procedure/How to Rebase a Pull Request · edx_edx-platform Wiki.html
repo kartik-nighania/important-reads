@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com/">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com/">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/frameworks-4ba00b1aa0227e4b7a7961544c3b7938afb2720757a471735991ec4475c829e0.css" integrity="sha256-S6ALGqAifkt6eWFUTDt5OK+ycgdXpHFzWZHsRHXIKeA=" media="all" rel="stylesheet">
+  <link crossorigin="anonymous" href="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/github-05277565d8051c5c89518bb29baaeb4ff6cc8669c06e1f94eb4a10f2e0abc77c.css" integrity="sha256-BSd1ZdgFHFyJUYuym6rrT/bMhmnAbh+U60oQ8uCrx3w=" media="all" rel="stylesheet">
+  
+  
+  
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>How to Rebase a Pull Request · edx/edx-platform Wiki</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars2.githubusercontent.com/u/3179841?v=3&amp;s=400" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="edx/edx-platform" property="og:title"><meta content="https://github.com/edx/edx-platform" property="og:url"><meta content="edx-platform - The Open edX platform, the software that powers edX!" property="og:description">
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MTgxNjg4MjAwOjg0ZDc0MGQxZjc1ZTc3MTk3ZWE5MGU5MjFiNTg5M2FkZjhmYzZmOWIwZGMzOTM4YjNhMzE2OWVlNTlkNWU0Nzk=--028d37a94197b8dbe77301c581d0bc01c8afc055">
+  <meta name="pjax-timeout" content="1000">
+  <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+  <meta name="request-id" content="D998:2DEA1:105F65:18F195:595565B4" data-pjax-transient="">
+  
+
+  <meta name="selected-link" value="repo_wiki" data-pjax-transient="">
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url"><meta content="D998:2DEA1:105F65:18F195:595565B4" name="octolytics-dimension-request_id"><meta content="iad" name="octolytics-dimension-region_edge"><meta content="iad" name="octolytics-dimension-region_render"><meta content="12850602" name="octolytics-actor-id"><meta content="kartik-nighania" name="octolytics-actor-login"><meta content="d1b9d95d1013bb8eacbd270e82c73e7a960c3cd018c62e90b986b93d960d6040" name="octolytics-actor-hash">
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location">
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="kartik-nighania">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="ZDEwZDc2MGJiMWZmYzMyNzc2MjFlZGJhNmQxYTAyN2Q5ZWUxMWVkMmM5MzRmN2VjNmRlMTZjN2FmMGEzOGNiY3x7InJlbW90ZV9hZGRyZXNzIjoiNDkuMzQuMy4xMjIiLCJyZXF1ZXN0X2lkIjoiRDk5ODoyREVBMToxMDVGNjU6MThGMTk1OjU5NTU2NUI0IiwidGltZXN0YW1wIjoxNDk4NzY4ODI5LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+
+
+  <meta name="html-safe-nonce" content="e7e8f68fb563bde394efc18d72c52d6819176a9d">
+
+  <meta http-equiv="x-pjax-version" content="a716871d1154542c897425ae7741887f">
+  
+
+      <link href="https://github.com/edx/edx-platform/commits/master.atom" rel="alternate" title="Recent Commits to edx-platform:master" type="application/atom+xml">
+
+  <meta name="description" content="edx-platform - The Open edX platform, the software that powers edX!">
+  <meta name="go-import" content="github.com/edx/edx-platform git https://github.com/edx/edx-platform.git">
+
+  <meta content="3179841" name="octolytics-dimension-user_id"><meta content="edx" name="octolytics-dimension-user_login"><meta content="10391073" name="octolytics-dimension-repository_id"><meta content="edx/edx-platform" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="10391073" name="octolytics-dimension-repository_network_root_id"><meta content="edx/edx-platform" name="octolytics-dimension-repository_network_root_nwo"><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown">
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+  <meta name="u2f-support" content="true">
+
+  </head>
+
+  <body class="logged-in env-production">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#start-of-content" tabindex="1" class="bg-black text-white p-3 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        
+<div class="header" role="banner">
+  <div class="container clearfix">
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/edx/edx-platform/search" class="js-site-search-form" data-scoped-search-url="/edx/edx-platform/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request" class="header-search-scope no-underline">This repository</a>
+      <input type="text" class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable" data-hotkey="s" name="q" value="" placeholder="Search" aria-label="Search this repository" data-unscoped-placeholder="Search GitHub" data-scoped-placeholder="Search" autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type">
+    </label>
+</form></div>
+
+
+      <ul class="header-nav float-left" role="navigation">
+        <li class="header-nav-item">
+          <a href="https://github.com/pulls" aria-label="Pull requests you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="https://github.com/issues" aria-label="Issues you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+            <li class="header-nav-item">
+              <a href="https://github.com/marketplace" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:marketplace context:user" data-selected-links=" /marketplace">
+                Marketplace
+</a>            </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav float-right" id="user-links">
+  <li class="header-nav-item">
+    
+    <a href="https://github.com/notifications" aria-label="You have no unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s js-socket-channel js-notification-indicator " data-channel="notification-changed:12850602" data-ga-click="Header, go to notifications, icon:read" data-hotkey="g n">
+        <span class="mail-status "></span>
+        <svg aria-hidden="true" class="octicon octicon-bell float-left" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 12v1H0v-1l.73-.58c.77-.77.81-2.55 1.19-4.42C2.69 3.23 6 2 6 2c0-.55.45-1 1-1s1 .45 1 1c0 0 3.39 1.23 4.16 5 .38 1.88.42 3.66 1.19 4.42l.66.58H14zm-7 4c1.11 0 2-.89 2-2H5c0 1.11.89 2 2 2z"></path></svg>
+</a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="https://github.com/new" aria-label="Create new…" aria-expanded="false" aria-haspopup="true" data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus float-left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="https://github.com/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="https://github.com/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+<a class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
+  New gist
+</a>
+
+  <a class="dropdown-item" href="https://github.com/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="https://github.com/kartik-nighania" aria-label="View profile and more" aria-expanded="false" aria-haspopup="true" data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@kartik-nighania" class="avatar" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/12850602" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu dropdown-menu-sw">
+        <div class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">kartik-nighania</strong>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/kartik-nighania" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a>
+        <a class="dropdown-item" href="https://github.com/kartik-nighania?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+        <a class="dropdown-item" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">
+          Explore
+        </a>
+        <a class="dropdown-item" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="https://github.com/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a>
+
+        <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="ROTYKzEq7bwHJ14rmj8xadWZZhz5s1Ti6IKsy87tKxYT4rBaWg3zX4/Z+T/9QZbRxIbxW/SOxY9wxcK+JGW45w=="></div>
+          <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </li>
+</ul>
+
+
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="25ukSrdi3viwMmvoDL5vtGYRO1wI0rUzxwFgWwb/aqCMncw73EXAGzjMzPxrwMgMdw6sGwXvJF5fRg4u7Hf5UQ=="></div>
+      <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+        Sign out
+      </button>
+</form>  </div>
+</div>
+
+
+      
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container="">
+      
+
+
+
+  
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+        <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="QvPaeXEarzPn5s1V04fXCNtoB1po6tkKU5RbQMp8hiw95DsF9x7BZ0rR+J9MsOZ7I6y5OlH72Tqqrz3273zA+g=="></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="10391073">
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="https://github.com/edx/edx-platform/subscription" class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Toggle repository notifications menu" data-ga-click="Repository, click Watch settings, action:wiki#show">
+            <span class="js-select-button">
+                <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                Watch
+            </span>
+          </a>
+            <a class="social-count js-social-count" href="https://github.com/edx/edx-platform/watchers" aria-label="379 users are watching this repository">
+              379
+            </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" type="radio" value="included">
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" type="radio" value="subscribed">
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                        Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" type="radio" value="ignore">
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"></path></svg>
+                        Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/edx/edx-platform/unstar" class="starred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="CHCcVC8ZAu8MoFBdksp34WUMO3Vw7OmEDO4sO32LfV0auO1KTSyzLwSi4W6f5LdQlJerisIsWvHMTfcifR7aEw=="></div>
+      <button type="submit" class="btn btn-sm btn-with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar edx/edx-platform" data-ga-click="Repository, click unstar button, action:wiki#show; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/edx/edx-platform/stargazers" aria-label="3197 users starred this repository">
+          3,197
+        </a>
+</form>
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/edx/edx-platform/star" class="unstarred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="abOkJvz84RKJXOWJjEFjacqPCkz1eC4CnuoRK4E5onw7CERBeSjX3mHN+4coBJPXL0WOabEqSxyXtLKUs3TMHA=="></div>
+      <button type="submit" class="btn btn-sm btn-with-count js-toggler-target" aria-label="Star this repository" title="Star edx/edx-platform" data-ga-click="Repository, click star button, action:wiki#show; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/edx/edx-platform/stargazers" aria-label="3197 users starred this repository">
+          3,197
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#fork-destination-box" class="btn btn-sm btn-with-count" title="Fork your own copy of edx/edx-platform to your account" aria-label="Fork your own copy of edx/edx-platform to your account" rel="facebox" data-ga-click="Repository, show fork modal, action:wiki#show; text:Fork">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+            Fork
+          </a>
+
+          <div id="fork-destination-box" style="display: none;">
+            <h2 class="facebox-header" data-facebox-id="facebox-header">Where should we fork this repository?</h2>
+            <include-fragment src="" class="js-fork-select-fragment fork-select-fragment" data-url="/edx/edx-platform/fork?fragment=1">
+              <img alt="Loading" height="64" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/octocat-spinner-128.gif" width="64">
+            </include-fragment>
+          </div>
+
+    <a href="https://github.com/edx/edx-platform/network" class="social-count" aria-label="1850 users forked this repository">
+      1,850
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+  <span class="author" itemprop="author"><a href="https://github.com/edx" class="url fn" rel="author">edx</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="https://github.com/edx/edx-platform" data-pjax="#js-repo-pjax-container">edx-platform</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" data-pjax="#js-repo-pjax-container">
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/edx/edx-platform" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /edx/edx-platform" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/edx/edx-platform/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /edx/edx-platform/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">170</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="https://github.com/edx/edx-platform/projects" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /edx/edx-platform/projects">
+      <svg aria-hidden="true" class="octicon octicon-project" height="16" version="1.1" viewBox="0 0 15 16" width="15"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"></path></svg>
+      Projects
+      <span class="Counter">0</span>
+</a>
+    <a href="https://github.com/edx/edx-platform/wiki" class="js-selected-navigation-item selected reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /edx/edx-platform/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"></path></svg>
+      Wiki
+</a>
+
+    <div class="reponav-dropdown js-menu-container">
+      <button type="button" class="btn-link reponav-item reponav-dropdown js-menu-target " data-no-toggle="" aria-expanded="false" aria-haspopup="true">
+        Insights
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle text-gray" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"></path></svg>
+      </button>
+      <div class="dropdown-menu-content js-menu-content">
+        <div class="dropdown-menu dropdown-menu-sw">
+          <a class="dropdown-item" href="https://github.com/edx/edx-platform/pulse" data-skip-pjax="">
+            <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"></path></svg>
+            Pulse
+          </a>
+          <a class="dropdown-item" href="https://github.com/edx/edx-platform/graphs" data-skip-pjax="">
+            <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"></path></svg>
+            Graphs
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+  <div id="wiki-wrapper" class="wiki-wrapper page">
+  <div class="gh-header">
+    <div class="gh-header-show">
+      <h1 class="gh-header-title instapaper_title">How to Rebase a Pull Request</h1>
+        <div class="gh-header-meta">
+          Andres edited this page <relative-time datetime="2016-10-20T16:32:05Z" title="20 Oct 2016, 22:02 GMT+5:30">on 20 Oct 2016</relative-time>
+          ·
+          <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request/_history" class="history">
+            18 revisions
+          </a>
+        </div>
+    </div>
+  </div>
+  <div id="wiki-content" class="wiki-content">
+    <div class="has-rightbar">
+
+    <div id="wiki-rightbar" class="wiki-rightbar">
+      <div class="wiki-pages-box readability-sidebar boxed-group flush js-wiki-pages-box " role="navigation">
+        
+<h3 class="js-wiki-toggle-collapse wiki-auxiliary-content">
+  <svg aria-hidden="true" class="octicon octicon-triangle-down caret-expanded" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"></path></svg>
+  <svg aria-hidden="true" class="octicon octicon-triangle-right caret-collapsed" height="16" version="1.1" viewBox="0 0 6 16" width="6"><path fill-rule="evenodd" d="M0 14l6-6-6-6z"></path></svg>
+  Pages <span class="Counter">54</span>
+</h3>
+<div class="boxed-group-inner wiki-auxiliary-content wiki-auxiliary-content-no-bg">
+    <div class="filter-bar">
+      <input type="text" id="wiki-pages-filter" class="form-control input-sm input-block js-filterable-field" placeholder="Find a Page…" aria-label="Find a Page…" tabindex="2">
+    </div>
+
+  <ul class="wiki-pages" data-filterable-for="wiki-pages-filter" data-filterable-type="substring">
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki" class="wiki-page-link">Home</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Alternate-site-for-marketing-links" class="wiki-page-link">Alternate site for marketing links</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Bulk-Email" class="wiki-page-link">Bulk Email</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Courseware-Traversal-Visualization" class="wiki-page-link">Courseware Traversal Visualization</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Data-Access,-Persistence" class="wiki-page-link">Data Access, Persistence</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Developing-on-the-edX-Developer-Stack" class="wiki-page-link">Developing on the edX Developer Stack</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Frequently-Asked-Questions" class="wiki-page-link">Frequently Asked Questions</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon---Gigabit-Explorer" class="wiki-page-link">Hackathon   Gigabit Explorer</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon-Five:-Prep-for-the-Gov!" class="wiki-page-link">Hackathon Five: Prep for the Gov!</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon-four:-the-more-the-merrier" class="wiki-page-link">Hackathon four: the more the merrier</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon-Seven:-The-Voorhees-Special" class="wiki-page-link">Hackathon Seven: The Voorhees Special</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon-Six:-New-Digs" class="wiki-page-link">Hackathon Six: New Digs</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Hackathon:-Python-Profiling" class="wiki-page-link">Hackathon: Python Profiling</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/How-Custom-Response-Grading-Python-Executes" class="wiki-page-link">How Custom Response Grading Python Executes</a></strong>
+    </li>
+    <li>
+      <strong><a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request" class="wiki-page-link">How to Rebase a Pull Request</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/In-progress-grades" class="wiki-page-link">In progress grades</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Internationalization-and-localization" class="wiki-page-link">Internationalization and localization</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Join-Us" class="wiki-page-link">Join Us</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Join-Us---MVP" class="wiki-page-link">Join Us   MVP</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/List-of-Open-edX-service-providers" class="wiki-page-link">List of Open edX service providers</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/localization-and-development-in-china" class="wiki-page-link">localization and development in china</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Locators-and-older-Locations" class="wiki-page-link">Locators and older Locations</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Locators:-Developer-Notes" class="wiki-page-link">Locators: Developer Notes</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Microsites-Theming" class="wiki-page-link">Microsites Theming</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Mixed-Module-Store" class="wiki-page-link">Mixed Module Store</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Mixed-Modulestore" class="wiki-page-link">Mixed Modulestore</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Object-Identities" class="wiki-page-link">Object Identities</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Online-python-tutor-integration-into-edx" class="wiki-page-link">Online python tutor integration into edx</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Opaque-Keys-(Locators)" class="wiki-page-link">Opaque Keys (Locators)</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Opaque-Keys-Rollout-Plan" class="wiki-page-link">Opaque Keys Rollout Plan</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Open-edX-with-Browser-Sync-for-Auto-Refresh" class="wiki-page-link">Open edX with Browser Sync for Auto Refresh</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Optional-Account-lockout-after-excessive-login-failures" class="wiki-page-link">Optional Account lockout after excessive login failures</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Optional-Advanced-Security-Features" class="wiki-page-link">Optional Advanced Security Features</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Optional-Login-Session-timeout-after-inactivity" class="wiki-page-link">Optional Login Session timeout after inactivity</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Optional-Password-Policy-Enforcement" class="wiki-page-link">Optional Password Policy Enforcement</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Optional-Splash-page" class="wiki-page-link">Optional Splash page</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Paid-Certificates" class="wiki-page-link">Paid Certificates</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Payment-integration-stub" class="wiki-page-link">Payment integration stub</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Powered-by-Open-edX-Logos" class="wiki-page-link">Powered by Open edX Logos</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Proposal:-Legacy-and-New-Instructor-Dashboards" class="wiki-page-link">Proposal: Legacy and New Instructor Dashboards</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Right-to-Left-script-support" class="wiki-page-link">Right to Left script support</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/RTL-UI-Best-Practices" class="wiki-page-link">RTL UI Best Practices</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Shell-commands" class="wiki-page-link">Shell commands</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Shopping-Cart" class="wiki-page-link">Shopping Cart</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Significant-Community-Contributions" class="wiki-page-link">Significant Community Contributions</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Sites-powered-by-Open-edX" class="wiki-page-link">Sites powered by Open edX</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Split-mongo-architecture-and-rollout-options" class="wiki-page-link">Split mongo architecture and rollout options</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Split:-the-versioning,-structure-saving-DAO" class="wiki-page-link">Split: the versioning, structure saving DAO</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Stanford-Theming" class="wiki-page-link">Stanford Theming</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Test-engineering-FAQ" class="wiki-page-link">Test engineering FAQ</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/Writing-easily-XBlock-portable-XModules" class="wiki-page-link">Writing easily XBlock portable XModules</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/xblock-and-course-addressing" class="wiki-page-link">xblock and course addressing</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/XBlock-Peak-Confusion-notes" class="wiki-page-link">XBlock Peak Confusion notes</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="https://github.com/edx/edx-platform/wiki/XBlocks-Install-Manager" class="wiki-page-link">XBlocks Install Manager</a></strong>
+    </li>
+    <li class="wiki-more-pages-link">
+      <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#" class="js-wiki-more-pages-link">
+        Show 39 more pages…
+      </a>
+    </li>
+  </ul>
+</div>
+
+      </div>
+
+
+      <div class="clone-url">
+        <h5>Clone this wiki locally</h5>
+        <div class="input-group js-zeroclipboard-container">
+          <input type="text" class="form-control input-sm text-small text-gray input-monospace js-url-field js-zeroclipboard-target" aria-label="Clone URL for this wiki" value="https://github.com/edx/edx-platform.wiki.git" readonly="readonly">
+          <span class="input-group-button">
+            <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><svg aria-hidden="true" class="octicon octicon-clippy" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"></path></svg></button>
+          </span>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div id="wiki-body" class="wiki-body gollum-markdown-content instapaper_body">
+        <div class="markdown-body">
+          <p>When many different people are working on a project simultaneously, pull requests can go stale quickly. A "stale" pull request is one that is no longer up to date with the main line of development, and it needs to be updated before it can be merged into the project. The most common reason why pull requests go stale is due to conflicts: if two pull requests both modify similar lines in the same file, and one pull request gets merged, the unmerged pull request will now have a conflict. Sometimes, a pull request can go stale without conflicts: perhaps changes in a different file in the codebase require corresponding changes in your pull request to conform to the new architecture, or perhaps the branch was created when someone had accidentally merged failing unit tests to the master branch. Regardless of the reason, if your pull request has gone stale, you will need to rebase your branch onto the latest version of the master branch before it can be merged.</p>
+
+<h2>
+<a id="user-content-what-is-a-rebase" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#what-is-a-rebase" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is a rebase?</h2>
+
+<p><img alt="master" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/master.png"></p>
+
+<p>To understand this, we need to understand a bit about how Git works. A Git repository is a tree structure, where the nodes of the tree are commits. Here's an example of a very simple repository: it has four commits on the master branch, and each commit has an ID (in this case, <code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code>). You'll notice that <code>d</code> is currently the latest commit (or HEAD) of the <code>master</code> branch.</p>
+
+<div></div>
+
+<p><img alt="master and my-branch" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/branch.png"></p>
+
+<p>Here, we have two branches: <code>master</code> and <code>my-branch</code>. You can see that <code>master</code> and <code>my-branch</code> both contain commits <code>a</code> and <code>b</code>, but then they start to diverge: <code>master</code> contains <code>c</code> and <code>d</code>, while <code>my-branch</code> contains <code>e</code> and <code>f</code>. <code>b</code> is said to be the "merge base" of <code>my-branch</code> in comparison to <code>master</code> -- or more commonly, just the "base". It makes sense: you can see that <code>my-branch</code> was based on a previous version of <code>master</code>.</p>
+
+<p>So let's say that <code>my-branch</code> has gone stale, and you want to bring it up to date with the latest version of <code>master</code>. To put it another way, <code>my-branch</code> needs to contain <code>c</code> and <code>d</code>. You could do a merge, but that causes the branch to contain weird merge commits that make reviewing the pull request much more difficult. Instead, you can do a <a href="http://www.git-scm.com/book/en/Git-Branching-Rebasing">rebase</a>.</p>
+
+<div></div>
+
+<p><img alt="rebase" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/rebase.png"></p>
+
+<p>When you rebase, Git finds the base of your branch (in this case, <code>b</code>), finds all the commits between that base and HEAD (in this case, <code>e</code> and <code>f</code>), and <em>re-plays</em> those commits on the HEAD of the branch you're rebasing onto (in this case, <code>master</code>). Git actually creates <em>new commits</em> that represent what your changes look like <em>on top of</em> <code>master</code>: in the diagram, these commits are called <code>e′</code> and <code>f′</code>. Git doesn't erase your previous commits: <code>e</code> and <code>f</code> are left untouched, and if something goes wrong with the rebase, you can go right back to the way things used to be.</p>
+
+<p>Another thing to notice, however, is that Git treats branches as merely labels. The <code>master</code> branch is whatever commit the <code>master</code> label is pointing to, as well as all of that commit's parents. When you rebase a branch, Git moves the branch label to point at the newly-created commits: <code>my-branch</code> is no longer pointing at <code>f</code>, it's now pointing at <code>f′</code>. Going back to the way things used to be just consists of changing that branch label so that it points back at <code>f</code>.</p>
+
+<h3>
+<a id="user-content-changing-history" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#changing-history" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Changing History</h3>
+
+<p>You'll notice that there is not a direct path from <code>f</code> to <code>f′</code>: from the point of view of anyone else watching <code>my-branch</code>, history has suddenly changed. In effect, <code>c</code> and <code>d</code> have been injected into <code>my-branch</code>'s history, as if they had been there the entire time. Unlike most version control systems, Git allows you to change the history of your project -- but it is very cautious about letting you do so. We'll come back to this point later.</p>
+
+<h2>
+<a id="user-content-how-do-i-rebase" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#how-do-i-rebase" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How do I rebase?</h2>
+
+<p>So, now that you understand what a rebase is, the next step is learning how to do it. Let's say you have a fork of <code>edx-platform</code>, and you've created a branch, like so:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git clone https://github.com/my-username/edx-platform.git
+$ <span class="pl-c1">cd</span> edx-platform
+$ git checkout -b my-branch</pre></div>
+
+<p>You've made some commits in your branch, pushed them to GitHub, and created a pull request. You're going through the code review process, responding to comments, and someone asks you to rebase your pull request. Here's what you do:</p>
+
+<h3>
+<a id="user-content-add-the-official-repo-as-a-remote-first-time-only" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#add-the-official-repo-as-a-remote-first-time-only" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add the official repo as a remote (first time only)</h3>
+
+<p>A "remote", in Git terminology, is another clone of the repository that you can share commits with. When you forked the official <code>edx/edx-platform</code> project, you created a new Git repository called <code>my-username/edx-platform</code>, but these two repositories can share commits with each other.</p>
+
+<p>To add <code>edx</code> as a remote, run this command in your repository:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git remote add edx https://github.com/edx/edx-platform.git</pre></div>
+
+<p>You can verify that you did this successfully by running <code>$ git remote -v</code>: you should see <code>edx</code> in the list of remotes. <strong>Note:</strong> this step only needs to be performed once per clone.</p>
+
+<h3>
+<a id="user-content-fetch-the-latest-version-of-master" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#fetch-the-latest-version-of-master" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fetch the latest version of master</h3>
+
+<p>Your computer needs to download information from GitHub about the official repo, so that it knows what's on the latest version of the <code>master</code> branch. Once you've got your remote set up, this is simple. Run this command in your repository:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git fetch edx</pre></div>
+
+<h3>
+<a id="user-content-squash-your-changes" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#squash-your-changes" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Squash your changes</h3>
+
+<p>This step is not always necessary, but is required when your commit history is full of small, unimportant commits (such as "Fix pep8", "Add tests", or "ARUURUGHSFDFSDFSDGLJKLJ:GK"). It involves taking all the commits you've made on your branch, and squashing them all into one, larger commit. Doing this makes it easier for you to resolve conflicts while performing the rebase, and easier for us to review your pull request.</p>
+
+<p>To do this, we're going to do an <a href="https://help.github.com/articles/interactive-rebase">interactive rebase</a>. You can also use interactive rebase to change the wording on commit messages (for example, to provide more detail), or reorder commits (use caution here: reordering commits can cause some nasty merge conflicts).</p>
+
+<p>If you know the number of commits on your branch that you want to rebase, you can simply run:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git rebase -i HEAD~n</pre></div>
+
+<p>where <code>n</code> is the number of commits to rebase.</p>
+
+<p>If you <em>don't</em> know how many commits are on your branch, you'll first need to find the commit that is base of your branch. You can do this by running:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git merge-base my-branch edx/master</pre></div>
+
+<p>That command will return a commit hash. Use that commit hash in constructing this next command:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git rebase -i <span class="pl-smi">${HASH}</span></pre></div>
+
+<p>Note that you should <em>replace</em> <code>${HASH}</code> with the actual commit hash from the previous command. For example, if your merge base is <code>abc123</code>, you would run <code>$ git rebase -i abc123</code>. (Your hash will be a lot longer than 6 characters. Also, do NOT include a <code>$</code>!)</p>
+
+<p>Once you've run a <code>git rebase -i</code> command, your text editor will open with a file that lists all the commits in your branch, and in front of each commit is the word "pick". It looks something like this:</p>
+
+<pre><code>pick 1fc6c95 do something
+pick 6b2481b do something else
+pick dd1475d changed some things
+pick c619268 fixing typos
+</code></pre>
+
+<p>For every line <em>except the first</em>, you want to replace the word "pick" with the word "squash". It should end up looking like this:</p>
+
+<pre><code>pick 1fc6c95 do something
+squash 6b2481b do something else
+squash dd1475d changed some things
+squash c619268 fixing typos
+</code></pre>
+
+<p>Save and close the file, and a moment later a new file should pop up in your editor, combining all the commit messages of all the commits. Reword this commit message as you want, and then save and close that file as well. This commit message will be the commit message for the one, big commit that you are squashing all of your larger commits into. Once you've saved and closed that file, your commits have been squashed together, and you're done with this step!</p>
+
+<h3>
+<a id="user-content-rewording-commits" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#rewording-commits" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Rewording commits</h3>
+
+<p>To reword commits, perform an interactive rebase as described in the above section. This time, instead of using the <code>squash</code> command, use the command <code>reword</code>. For example you might perform an interactive rebase and replace this:</p>
+
+<pre><code>pick 1fc6c95 nblargh testing new thing
+pick 6b2481b Awesome New Feature: FED and Jasmine tests
+</code></pre>
+
+<p>with this:</p>
+
+<pre><code>reword 1fc6c95 nblargh testing new thing
+pick 6b2481b Awesome New Feature: FED and Jasmine tests
+</code></pre>
+
+<p>Save and close the file, and a moment later a new file should pop up in your editor, showing you the current wording of the commit message. Reword this commit message as you want, and then save and close that file as well. This commit message will be the new commit message for your commit, thus your history can have more useful commit messages such as:</p>
+
+<pre><code>1fc6c95 Awesome New Feature: API Endpoints and Unit Tests
+6b2481b Awesome New Feature: FED and Jasmine tests
+</code></pre>
+
+<h3>
+<a id="user-content-perform-a-rebase" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#perform-a-rebase" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Perform a rebase</h3>
+
+<p>To rebase your branch atop of the latest version of edx-platform, run this command in your repository:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git rebase edx/master</pre></div>
+
+<p>Git will start replaying your commits onto the latest version of master. You may get conflicts while doing so: if you do, Git will pause and ask you to resolve the conflicts before continuing. This is exactly like resolving conflicts with a merge: you can use <code>git status</code> to see which files are in conflict, edit the files to resolve the conflicts, and then use <code>git add</code> to indicate that the conflicts have been resolved. However, instead of running <code>git commit</code>, you instead want to run <code>git rebase --continue</code> to indicate to Git that it should continue replaying your commits. If you've squashed your commits before doing this step, you'll only have to pause to resolve conflicts once -- if you didn't squash, you may have to resolve your conflicts multiple times. If you are on Git version &lt;2.0 and you are stuck with the message "You must edit all merge conflicts and then mark them as resolved using Git add" even though you resolved and added the file, run <code>git diff</code> and try again. </p>
+
+<h3>
+<a id="user-content-force-push-to-update-your-pull-request" class="anchor" href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request#force-push-to-update-your-pull-request" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Force-push to update your pull request</h3>
+
+<p>As explained above, when you do a rebase, you are changing the history on your branch. As a result, if you try to do a normal <code>git push</code> after a rebase, Git will reject it because there isn't a direct path from the commit on the server to the commit on your branch. Instead, you'll need to use the <code>-f</code> or <code>--force</code> flag to tell Git that yes, you really know what you're doing. When doing force pushes, it is <em>highly</em> recommended that you set your <code>push.default</code> config setting to <code>simple</code>, which is the default in Git 2.0. To make sure that your config is correct, run:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git config --global push.default simple</pre></div>
+
+<p>Once it's correct, you can just run:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ git push -f</pre></div>
+
+<p>And check your pull request. It should be updated!</p>
+
+        </div>
+
+    </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>© 2017 <span title="0.23375s from unicorn-85255817-h0g7q">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com/" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    
+    <script crossorigin="anonymous" integrity="sha256-Fl4qc0hD8hzSj20q714fyYNlxz5ddFfw2Hx2+uppP7I=" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/frameworks-165e2a734843f21cd28f6d2aef5e1fc98365c73e5d7457f0d87c76faea693fb2.js"></script>
+    
+    <script async="async" crossorigin="anonymous" integrity="sha256-BPI+zzgJyR3A0DLTa4IL5v1fyNwZPNTZ6UBJC+h5fTo=" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/github-04f23ecf3809c91dc0d032d36b820be6fd5fc8dc193cd4d9e940490be8797d3a.js"></script>
+    
+    
+      <script crossorigin="anonymous" integrity="sha256-jlZKluaeG/St0GFVgaSm5uAwwp7ba/HLOliIxbkY6Pc=" src="./How to Rebase a Pull Request · edx_edx-platform Wiki_files/wiki-8e564a96e69e1bf4add0615581a4a6e6e030c29edb6bf1cb3a5888c5b918e8f7.js"></script>
+
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+  </div>
+</div>
+
+
+  
+
+
+</body></html>
